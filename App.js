@@ -35,7 +35,7 @@ const MainNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'HomeScreen',
+    initialRouteName: 'ChatScreen',
   },
 );
 

@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import firebase from 'react-native-firebase';
-import Thread from '../components/Thread';
+import Thread from './Thread';
 import Sender from './Sender';
 
 function ChatScreen() {
@@ -24,7 +24,7 @@ function ChatScreen() {
         .on('value', snapshot => {
           if (snapshot._value) {
             let messages = Object.keys(snapshot._value).map(key => {
-              return {...snapshot._value[key]};
+              return {key, ...snapshot._value[key]};
             });
 
             messages = messages.sort((a, b) => a.timestamp - b.timestamp);

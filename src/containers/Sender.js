@@ -1,8 +1,14 @@
 import React from 'react';
-import {View, Text, TextInput, StyleSheet} from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
-import {TouchableHighlight} from 'react-native-gesture-handler';
 import firebase from 'react-native-firebase';
+import Icon from 'react-native-vector-icons/Feather';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableHighlight,
+  StyleSheet,
+} from 'react-native';
+import User from '../models/user';
 
 function Sender() {
   const [value, onChangeText] = React.useState('');
@@ -16,15 +22,10 @@ function Sender() {
         .push();
 
       thread.set({
-        avatar:
-          'https://firebasestorage.googleapis.com/v0/b/guester-f3953.appspot.com/o/avatars%2FUgOVkyBKBUbodalg6RjKKijtlis2.jpg?alt=media&token=96cc6b7e-7edf-411a-9190-30e0d8a443ae',
         content: value,
-        firstname: 'Sarayut',
-        lastname: 'Lawilai',
-        love: 0,
         timestamp: Date.now(),
         type: 'text',
-        userid: 'UgOVkyBKBUbodalg6RjKKijtlis2',
+        ...User,
       });
     }
 
@@ -43,7 +44,7 @@ function Sender() {
           value={value}
         />
       </View>
-      <TouchableHighlight onPress={onSubmit}>
+      <TouchableHighlight onPress={onSubmit} underlayColor="transprent">
         <Icon name="send" size={25} />
       </TouchableHighlight>
     </View>
