@@ -15,26 +15,28 @@ function ChatScreen() {
   const [isLoading, setLoading] = useState(true);
   const [dataSource, setDataSource] = useState([]);
 
-  useEffect(() => {
-    if (isLoading) {
-      firebase
-        .database()
-        .ref('channels')
-        .child('practical-software-engineer')
-        .orderByChild('timestamp')
-        .on('value', snapshot => {
-          if (snapshot._value) {
-            let messages = Object.keys(snapshot._value).map(key => {
-              return {key, ...snapshot._value[key]};
-            });
+  if (isLoading) {
+    firebase
+      .database()
+      .ref('channels')
+      .child('practical-software-engineer')
+      .limitToLast(20)
+      .orderByChild('timestamp')
+      .on('value', snapshot => {
+        if (snapshot._value) {
+          let messages = Object.keys(snapshot._value).map(key => {
+            return {key, ...snapshot._value[key]};
+          });
 
-            messages = messages.sort((a, b) => a.timestamp - b.timestamp);
-            setDataSource(messages);
-          }
-        });
+          messages = messages.sort((a, b) => b.timestamp - a.timestamp);
+          setDataSource(messages);
+        }
+      });
+
+    setTimeout(() => {
       setLoading(false);
-    }
-  }, [isLoading, dataSource]);
+    }, 1000);
+  }
 
   return (
     <View>
@@ -49,6 +51,9 @@ function ChatScreen() {
             <FlatList
               style={styles.threadList}
               data={dataSource}
+              scrollToIndex={{viewPosition: 1}}
+              inverted
+              showsVerticalScrollIndicator={false}
               renderItem={({item}) => (
                 <Thread
                   key={item.key}

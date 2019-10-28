@@ -37,7 +37,7 @@ function Sender() {
     onChangeText('');
   };
 
-  const playAnimation = () => {
+  const openAttachment = () => {
     if (isActiveAttachment) {
       setAttachment(false);
 
@@ -57,35 +57,41 @@ function Sender() {
     }).start();
   };
 
-  const openAttachment = () => {
-    playAnimation();
+  const showImagePicker = () => {
+    const options = {
+      title: 'Select Photo',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.showImagePicker(options, response => {
+      if (!response.didCancel && !response.error) {
+        const source = {uri: response.uri};
 
-    // const options = {
-    //   title: 'Select Photo',
-    //   storageOptions: {
-    //     skipBackup: true,
-    //     path: 'images',
-    //   },
-    // };
+        // Upload to storage
+        const fileName = Date.now();
+        const fileRef = firebase.storage().ref(`files/${fileName}`);
+        fileRef.put(source.uri).then(image => {
+          // Save to realtime db
+          const thread = firebase
+            .database()
+            .ref('channels')
+            .child('practical-software-engineer')
+            .push();
 
-    // ImagePicker.showImagePicker(options, response => {
-    //   console.log('Response = ', response);
-
-    // if (response.didCancel) {
-    //   console.log('User cancelled image picker');
-    // } else if (response.error) {
-    //   console.log('ImagePicker Error: ', response.error);
-    // } else if (response.customButton) {
-    //   console.log('User tapped custom button: ', response.customButton);
-    // } else {
-    //   const source = {uri: response.uri};
-    //   console.log(source);
-    // }
-    // });
+          thread.set({
+            content: {
+              imageUrl: image.downloadURL,
+            },
+            timestamp: Date.now(),
+            type: 'image',
+            ...user,
+          });
+        });
+      }
+    });
   };
-
-  // const customStyle = isAttachment ? styles.activeAttachment : styles.sender;
-  // console.log(customStyle);
 
   return (
     <Animated.View
@@ -101,6 +107,7 @@ function Sender() {
               name="paperclip"
               size={25}
               color={isActiveAttachment ? '#2A87D3' : '#222222'}
+              style={{paddingRight: 10}}
             />
           </TouchableHighlight>
           <TextInput
@@ -116,8 +123,14 @@ function Sender() {
         </TouchableHighlight>
       </View>
       <View style={styles.attachment}>
-        <Text>Hello</Text>
-        <Text>Hello</Text>
+        <TouchableHighlight
+          onPress={showImagePicker}
+          underlayColor="transprent">
+          <Icon name="image" size={25} style={styles.attachmentIcon} />
+        </TouchableHighlight>
+        <Icon name="file" size={25} style={styles.attachmentIcon} />
+        <Icon name="camera" size={25} style={styles.attachmentIcon} />
+        <Icon name="mic" size={25} style={styles.attachmentIcon} />
       </View>
     </Animated.View>
   );
@@ -154,19 +167,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input: {
-    width: '85%',
+    width: '80%',
     color: '#222222',
     padding: 20,
   },
   attachment: {
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     backgroundColor: '#ffffff',
     width: '100%',
-    height: 200,
+    height: 110,
     padding: 20,
+    paddingHorizontal: 30,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     marginTop: 20,
+  },
+  attachmentIcon: {
+    borderWidth: 1,
+    borderColor: '#e1e1e1',
+    color: '#222222',
+    padding: 20,
   },
 });
 

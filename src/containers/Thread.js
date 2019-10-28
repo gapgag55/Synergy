@@ -3,19 +3,11 @@ import firebase from 'react-native-firebase';
 import ThreadLeft from '../components/ThreadLeft';
 import ThreadRight from '../components/ThreadRight';
 import {user} from '../models/user';
+import ThreadImageLeft from '../components/ThreadImageLeft';
+import ThreadImageRight from '../components/ThreadImageRight';
 
 function Thread({thread, isMe}) {
-  const {
-    key,
-    avatar,
-    content,
-    firstname,
-    lastname,
-    love,
-    timestamp,
-    type,
-    userid,
-  } = thread;
+  const {key, avatar, content, firstname, lastname, timestamp, type} = thread;
 
   const [vote, setVote] = useState(0);
 
@@ -55,18 +47,44 @@ function Thread({thread, isMe}) {
   };
 
   if (isMe) {
-    return <ThreadRight content={content} vote={vote} onVote={onVote} />;
+    if (type === 'image') {
+      return (
+        <ThreadImageRight
+          avatar={avatar}
+          firstname={firstname}
+          lastname={lastname}
+          content={content}
+          vote={vote}
+          onVote={onVote}
+        />
+      );
+    } else {
+      return <ThreadRight content={content} vote={vote} onVote={onVote} />;
+    }
   } else {
-    return (
-      <ThreadLeft
-        avatar={avatar}
-        firstname={firstname}
-        lastname={lastname}
-        content={content}
-        vote={vote}
-        onVote={onVote}
-      />
-    );
+    if (type === 'image') {
+      return (
+        <ThreadImageLeft
+          avatar={avatar}
+          firstname={firstname}
+          lastname={lastname}
+          content={content}
+          vote={vote}
+          onVote={onVote}
+        />
+      );
+    } else {
+      return (
+        <ThreadLeft
+          avatar={avatar}
+          firstname={firstname}
+          lastname={lastname}
+          content={content}
+          vote={vote}
+          onVote={onVote}
+        />
+      );
+    }
   }
 }
 

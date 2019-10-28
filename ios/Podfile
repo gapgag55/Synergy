@@ -38,6 +38,7 @@ target 'guesters' do
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
   pod 'Firebase/Database'
+  pod 'Firebase/Storage'
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
