@@ -30,7 +30,7 @@ function ThreadImageRight({
     <View style={styles.thread}>
       <TouchableHighlight onPress={onVote} underlayColor="transparent">
         <View style={styles.container}>
-          <View style={styles.textContainer}>
+          <View style={styles.contentContainer}>
             <View style={styles.image}>
               <Animated.Image
                 source={{uri: imageUrl}}
@@ -58,24 +58,20 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     maxWidth: '60%',
-    paddingVertical: 5,
     paddingHorizontal: 5,
-    marginBottom: 5,
   },
   image: {
     width: 200,
     height: 200,
     borderRadius: 10,
-    marginRight: 10,
     backgroundColor: '#dddddd',
   },
   name: {
     fontWeight: '500',
     marginBottom: 5,
   },
-  textContainer: {
+  contentContainer: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
     paddingVertical: 5,
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
@@ -86,7 +82,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    left: 0,
+    left: -10,
     bottom: 0,
     backgroundColor: '#ffffff',
     paddingVertical: 2,

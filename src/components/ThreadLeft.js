@@ -10,7 +10,7 @@ function ThreadLeft({avatar, firstname, lastname, content, vote, onVote}) {
           <Image style={styles.avatar} source={{uri: avatar}} />
           <View>
             <Text style={styles.name}>{`${firstname} ${lastname}`}</Text>
-            <View style={styles.textContainer}>
+            <View style={styles.contentContainer}>
               <Text style={styles.text}>{content}</Text>
               {!!vote && (
                 <View style={styles.voteContainer}>
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 5,
   },
-  textContainer: {
+  contentContainer: {
     backgroundColor: '#dddddd',
     alignSelf: 'flex-start',
     paddingHorizontal: 10,
@@ -55,14 +55,14 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   text: {
-    fontSize: 17,
+    fontSize: 16,
   },
   voteContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
     right: -20,
-    bottom: -12,
+    bottom: -5,
     backgroundColor: '#ffffff',
     paddingVertical: 2,
     paddingHorizontal: 10,

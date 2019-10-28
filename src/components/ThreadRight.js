@@ -7,7 +7,7 @@ function ThreadRight({content, vote, onVote}) {
     <View style={styles.thread}>
       <TouchableHighlight onPress={onVote} underlayColor="transparent">
         <View style={styles.container}>
-          <View style={styles.textContainer}>
+          <View style={styles.contentContainer}>
             <Text style={styles.text}>{content}</Text>
             {!!vote && (
               <View style={styles.voteContainer}>
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     marginBottom: 5,
   },
-  textContainer: {
+  contentContainer: {
     backgroundColor: '#2A87D3',
     alignSelf: 'flex-start',
     paddingHorizontal: 10,
@@ -44,14 +44,14 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#ffffff',
-    fontSize: 17,
+    fontSize: 16,
   },
   voteContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
     left: -20,
-    bottom: -12,
+    bottom: -5,
     minWidth: 40,
     backgroundColor: '#ffffff',
     paddingVertical: 2,

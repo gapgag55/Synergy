@@ -8,6 +8,14 @@ import {user} from '../models/user';
 function Sender({isActiveAttachment, openAttachment}) {
   const [value, onChangeText] = useState('');
 
+  const options = {
+    title: 'Select Photo',
+    storageOptions: {
+      skipBackup: true,
+      path: 'images',
+    },
+  };
+
   const onTextSubmit = () => {
     if (value) {
       const thread = firebase
@@ -28,39 +36,42 @@ function Sender({isActiveAttachment, openAttachment}) {
   };
 
   const showImagePicker = () => {
-    const options = {
-      title: 'Select Photo',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
     ImagePicker.showImagePicker(options, response => {
-      if (!response.didCancel && !response.error) {
-        const source = {uri: response.uri};
-
-        // Upload to storage
-        const fileName = Date.now();
-        const fileRef = firebase.storage().ref(`files/${fileName}`);
-        fileRef.put(source.uri).then(image => {
-          // Save to realtime db
-          const thread = firebase
-            .database()
-            .ref('channels')
-            .child('practical-software-engineer')
-            .push();
-
-          thread.set({
-            content: {
-              imageUrl: image.downloadURL,
-            },
-            timestamp: Date.now(),
-            type: 'image',
-            ...user,
-          });
-        });
-      }
+      uploadFile(response);
     });
+  };
+
+  const showCamera = () => {
+    ImagePicker.launchCamera(options, response => {
+      uploadFile(response);
+    });
+  };
+
+  const uploadFile = response => {
+    if (!response.didCancel && !response.error) {
+      const source = {uri: response.uri};
+
+      // Upload to storage
+      const fileName = Date.now();
+      const fileRef = firebase.storage().ref(`files/${fileName}`);
+      fileRef.put(source.uri).then(image => {
+        // Save to realtime db
+        const thread = firebase
+          .database()
+          .ref('channels')
+          .child('practical-software-engineer')
+          .push();
+
+        thread.set({
+          content: {
+            imageUrl: image.downloadURL,
+          },
+          timestamp: Date.now(),
+          type: 'image',
+          ...user,
+        });
+      });
+    }
   };
 
   return (
@@ -96,7 +107,9 @@ function Sender({isActiveAttachment, openAttachment}) {
           <Icon name="image" size={25} style={styles.attachmentIcon} />
         </TouchableHighlight>
         <Icon name="file" size={25} style={styles.attachmentIcon} />
-        <Icon name="camera" size={25} style={styles.attachmentIcon} />
+        <TouchableHighlight onPress={showCamera} underlayColor="transparent">
+          <Icon name="camera" size={25} style={styles.attachmentIcon} />
+        </TouchableHighlight>
         <Icon name="mic" size={25} style={styles.attachmentIcon} />
       </View>
     </>

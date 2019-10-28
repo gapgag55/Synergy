@@ -12,7 +12,7 @@ function ThreadImageLeft({avatar, firstname, lastname, content, vote, onVote}) {
           <Image style={styles.avatar} source={{uri: avatar}} />
           <View>
             <Text style={styles.name}>{`${firstname} ${lastname}`}</Text>
-            <View style={styles.textContainer}>
+            <View style={styles.contentContainer}>
               <Image style={styles.image} source={{uri: imageUrl}} />
               {!!vote && (
                 <View style={styles.voteContainer}>
@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
     maxWidth: '100%',
     paddingVertical: 5,
     paddingHorizontal: 5,
-    marginBottom: 5,
   },
   avatar: {
     width: 40,
@@ -52,9 +51,8 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 5,
   },
-  textContainer: {
+  contentContainer: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 10,
     paddingVertical: 5,
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
@@ -65,7 +63,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    right: 0,
+    right: -5,
     bottom: 0,
     backgroundColor: '#ffffff',
     paddingVertical: 2,
