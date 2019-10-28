@@ -7,7 +7,7 @@ function ThreadImageLeft({avatar, firstname, lastname, content, vote, onVote}) {
 
   return (
     <View>
-      <TouchableHighlight onPress={onVote} underlayColor="transprent">
+      <TouchableHighlight onPress={onVote} underlayColor="transparent">
         <View style={styles.container}>
           <Image style={styles.avatar} source={{uri: avatar}} />
           <View>

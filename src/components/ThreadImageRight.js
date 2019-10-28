@@ -8,14 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function ThreadImageRight({
-  avatar,
-  firstname,
-  lastname,
-  content,
-  vote,
-  onVote,
-}) {
+function ThreadImageRight({content, vote, onVote}) {
   const {imageUrl} = content;
 
   const imageAnimated = new Animated.Value(0);

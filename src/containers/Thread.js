@@ -5,6 +5,8 @@ import ThreadRight from '../components/ThreadRight';
 import {user} from '../models/user';
 import ThreadImageLeft from '../components/ThreadImageLeft';
 import ThreadImageRight from '../components/ThreadImageRight';
+import ThreadFileLeft from '../components/ThreadFileLeft';
+import ThreadFileRight from '../components/ThreadFileRight';
 
 function Thread({thread, isMe}) {
   const {key, avatar, content, firstname, lastname, timestamp, type} = thread;
@@ -47,9 +49,17 @@ function Thread({thread, isMe}) {
   };
 
   if (isMe) {
-    if (type === 'image') {
+    if (type === 'file') {
+      return <ThreadFileRight content={content} vote={vote} onVote={onVote} />;
+    } else if (type === 'image') {
+      return <ThreadImageRight content={content} vote={vote} onVote={onVote} />;
+    } else {
+      return <ThreadRight content={content} vote={vote} onVote={onVote} />;
+    }
+  } else {
+    if (type === 'file') {
       return (
-        <ThreadImageRight
+        <ThreadFileLeft
           avatar={avatar}
           firstname={firstname}
           lastname={lastname}
@@ -58,11 +68,7 @@ function Thread({thread, isMe}) {
           onVote={onVote}
         />
       );
-    } else {
-      return <ThreadRight content={content} vote={vote} onVote={onVote} />;
-    }
-  } else {
-    if (type === 'image') {
+    } else if (type === 'image') {
       return (
         <ThreadImageLeft
           avatar={avatar}

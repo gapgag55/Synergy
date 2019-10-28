@@ -56,18 +56,24 @@ function Sender({isActiveAttachment, openAttachment}) {
   const showFilePicker = async () => {
     try {
       const res = await DocumentPicker.pick();
-      console.log(
-        res.uri,
-        res.type, // mime type
-        res.name,
-        res.size,
-      );
-    } catch (err) {
-      if (DocumentPicker.isCancel(err)) {
-        // User cancelled the picker, exit any dialogs or menus and move on
+
+      if (res.type.split('/')[0] === 'image') {
+        const source = {
+          uri: res.uri,
+        };
+        uploadImage(source);
       } else {
-        throw err;
+        const source = {
+          uri: res.uri,
+          type: res.type,
+          name: res.name,
+          size: res.size,
+        };
+
+        uploadFile(source);
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -98,7 +104,29 @@ function Sender({isActiveAttachment, openAttachment}) {
     }
   };
 
-  const uploadFile = response => {};
+  const uploadFile = source => {
+    // Upload to storage
+    const fileRef = firebase.storage().ref(`files/${source.name}`);
+    fileRef.put(source.uri).then(file => {
+      // Save to realtime db
+      const thread = firebase
+        .database()
+        .ref('channels')
+        .child('practical-software-engineer')
+        .push();
+
+      thread.set({
+        content: {
+          fileName: source.name,
+          fileSize: source.size,
+          fileUrl: file.downloadURL,
+        },
+        timestamp: Date.now(),
+        type: 'file',
+        ...user,
+      });
+    });
+  };
 
   return (
     <>

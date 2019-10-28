@@ -133,9 +133,7 @@ const styles = StyleSheet.create({
   thread: {
     height: '80%',
   },
-  threadList: {
-    paddingTop: 20,
-  },
+  threadList: {},
   sender: {},
 });
 
