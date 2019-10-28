@@ -33,8 +33,6 @@ function ChatScreen() {
               return {key, ...snapshot._value[key]};
             });
 
-            console.log(messages);
-
             messages = messages.sort((a, b) => b.timestamp - a.timestamp);
             setDataSource(messages);
           }
@@ -52,7 +50,7 @@ function ChatScreen() {
     setAttachment(true);
 
     Animated.timing(activeAttachment, {
-      toValue: -90,
+      toValue: -110,
       duration: 200,
       useNativeDriver: true,
     }).start();
