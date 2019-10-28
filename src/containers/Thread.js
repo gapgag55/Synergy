@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import firebase from 'react-native-firebase';
 import {View, Text, Image, TouchableHighlight, StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import User from '../models/user';
 
 function Thread({thread, isMe}) {
@@ -15,6 +16,20 @@ function Thread({thread, isMe}) {
     type,
     userid,
   } = thread;
+
+  const [vote, setVote] = useState(0);
+
+  useEffect(() => {
+    const voteRef = firebase
+      .database()
+      .ref('channels')
+      .child('practical-software-engineer')
+      .child(key)
+      .child('vote')
+      .once('value', snapshot => {
+        setVote(snapshot.numChildren());
+      });
+  });
 
   const onVote = () => {
     const voteRef = firebase
@@ -45,6 +60,12 @@ function Thread({thread, isMe}) {
             <Text style={styles.name}>{`${firstname} ${lastname}`}</Text>
             <View style={styles.text}>
               <Text>{content}</Text>
+              {!!vote && (
+                <View style={styles.voteLeft}>
+                  <Icon name="heart" size={10} color={'#ff0000'} />
+                  <Text style={styles.voteText}>{vote}</Text>
+                </View>
+              )}
             </View>
           </View>
         </View>
@@ -83,6 +104,22 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 15,
+    position: 'relative',
+  },
+  voteLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    position: 'absolute',
+    right: -20,
+    bottom: -12,
+    backgroundColor: '#ffffff',
+    paddingVertical: 2,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+  },
+  voteText: {
+    fontSize: 15,
+    marginLeft: 2,
   },
 });
 

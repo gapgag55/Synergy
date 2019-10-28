@@ -50,6 +50,7 @@ function ChatScreen() {
               data={dataSource}
               renderItem={({item}) => (
                 <Thread
+                  key={item.key}
                   thread={item}
                   isMe={item.userid === 'UgOVkyBKBUbodalg6RjKKijtlis2'}
                 />
