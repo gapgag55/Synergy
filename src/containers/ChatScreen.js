@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Animated,
   TouchableWithoutFeedback,
+  KeyboardAvoidingView,
 } from 'react-native';
 import firebase from 'react-native-firebase';
 import Thread from './Thread';
@@ -69,7 +70,7 @@ function ChatScreen() {
   };
 
   return (
-    <View>
+    <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={80}>
       <StatusBar barStyle="dark-content" />
       <View style={styles.container}>
         {isLoading ? (
@@ -111,7 +112,7 @@ function ChatScreen() {
           </Animated.View>
         )}
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
