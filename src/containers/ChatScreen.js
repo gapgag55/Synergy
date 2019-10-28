@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   FlatList,
@@ -17,30 +17,32 @@ function ChatScreen() {
   const [isLoading, setLoading] = useState(true);
   const [dataSource, setDataSource] = useState([]);
   const [isActiveAttachment, setAttachment] = useState(false);
-  const [activeAttachment] = useState(new Animated.Value(20));
+  const [activeAttachment] = useState(new Animated.Value(0));
 
-  if (isLoading) {
-    firebase
-      .database()
-      .ref('channels')
-      .child('practical-software-engineer')
-      .limitToLast(20)
-      .orderByChild('timestamp')
-      .on('value', snapshot => {
-        if (snapshot._value) {
-          let messages = Object.keys(snapshot._value).map(key => {
-            return {key, ...snapshot._value[key]};
-          });
+  useEffect(() => {
+    if (isLoading) {
+      firebase
+        .database()
+        .ref('channels')
+        .child('practical-software-engineer')
+        .limitToLast(20)
+        .orderByChild('timestamp')
+        .on('value', snapshot => {
+          if (snapshot._value) {
+            let messages = Object.keys(snapshot._value).map(key => {
+              return {key, ...snapshot._value[key]};
+            });
 
-          messages = messages.sort((a, b) => b.timestamp - a.timestamp);
-          setDataSource(messages);
-        }
-      });
+            console.log(messages);
 
-    setTimeout(() => {
+            messages = messages.sort((a, b) => b.timestamp - a.timestamp);
+            setDataSource(messages);
+          }
+        });
+
       setLoading(false);
-    }, 1000);
-  }
+    }
+  }, [isLoading]);
 
   const openAttachment = () => {
     if (isActiveAttachment) {
@@ -61,7 +63,7 @@ function ChatScreen() {
       setAttachment(false);
 
       return Animated.timing(activeAttachment, {
-        toValue: 20,
+        toValue: 0,
         duration: 200,
         useNativeDriver: true,
       }).start();
@@ -91,7 +93,7 @@ function ChatScreen() {
                   scrollToIndex={{viewPosition: 1}}
                   inverted
                   showsVerticalScrollIndicator={false}
-                  renderItem={({item, index}) => (
+                  renderItem={({item}) => (
                     <Thread
                       key={item.key}
                       thread={item}

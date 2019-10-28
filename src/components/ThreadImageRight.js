@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     maxWidth: '60%',
     paddingHorizontal: 5,
+    marginBottom: 5,
   },
   image: {
     width: 200,
@@ -65,7 +66,6 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     alignSelf: 'flex-start',
-    paddingVertical: 5,
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 15,

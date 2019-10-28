@@ -174,6 +174,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#ffffff',
+    marginTop: 10,
     paddingVertical: 10,
     paddingHorizontal: 30,
     height: 'auto',

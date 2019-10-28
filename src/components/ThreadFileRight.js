@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     maxWidth: '60%',
     paddingHorizontal: 5,
+    marginBottom: 5,
   },
   name: {
     fontWeight: '500',

@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     maxWidth: '100%',
     paddingVertical: 5,
     paddingHorizontal: 5,
+    marginBottom: 5,
   },
   avatar: {
     width: 40,
