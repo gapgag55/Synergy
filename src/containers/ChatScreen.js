@@ -6,6 +6,7 @@ import {
   StatusBar,
   StyleSheet,
   Animated,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import firebase from 'react-native-firebase';
 import Thread from './Thread';
@@ -43,13 +44,7 @@ function ChatScreen() {
 
   const openAttachment = () => {
     if (isActiveAttachment) {
-      setAttachment(false);
-
-      return Animated.timing(activeAttachment, {
-        toValue: 20,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
+      return closeAttachment();
     }
 
     setAttachment(true);
@@ -59,6 +54,18 @@ function ChatScreen() {
       duration: 200,
       useNativeDriver: true,
     }).start();
+  };
+
+  const closeAttachment = () => {
+    if (isActiveAttachment) {
+      setAttachment(false);
+
+      return Animated.timing(activeAttachment, {
+        toValue: 20,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    }
   };
 
   return (
@@ -74,23 +81,27 @@ function ChatScreen() {
             style={{
               transform: [{translateY: activeAttachment}],
             }}>
-            <View style={styles.thread}>
-              <FlatList
-                style={styles.threadList}
-                data={dataSource}
-                scrollToIndex={{viewPosition: 1}}
-                inverted
-                showsVerticalScrollIndicator={false}
-                renderItem={({item, index}) => (
-                  <Thread
-                    key={item.key}
-                    thread={item}
-                    isMe={item.id === user.id}
-                  />
-                )}
-                keyExtractor={item => item.key}
-              />
-            </View>
+            <TouchableWithoutFeedback
+              onPress={() => closeAttachment()}
+              underlayColor="transparent">
+              <View style={styles.thread}>
+                <FlatList
+                  style={styles.threadList}
+                  data={dataSource}
+                  scrollToIndex={{viewPosition: 1}}
+                  inverted
+                  showsVerticalScrollIndicator={false}
+                  renderItem={({item, index}) => (
+                    <Thread
+                      key={item.key}
+                      thread={item}
+                      isMe={item.id === user.id}
+                    />
+                  )}
+                  keyExtractor={item => item.key}
+                />
+              </View>
+            </TouchableWithoutFeedback>
             <View style={styles.sender}>
               <Sender
                 isActiveAttachment={isActiveAttachment}

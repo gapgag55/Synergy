@@ -3,7 +3,7 @@ import {
   View,
   Text,
   Animated,
-  TouchableHighlight,
+  TouchableWithoutFeedback,
   StyleSheet,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -28,7 +28,7 @@ function ThreadImageRight({
 
   return (
     <View style={styles.thread}>
-      <TouchableHighlight onPress={onVote} underlayColor="transparent">
+      <TouchableWithoutFeedback onPress={onVote}>
         <View style={styles.container}>
           <View style={styles.contentContainer}>
             <View style={styles.image}>
@@ -46,7 +46,7 @@ function ThreadImageRight({
             )}
           </View>
         </View>
-      </TouchableHighlight>
+      </TouchableWithoutFeedback>
     </View>
   );
 }

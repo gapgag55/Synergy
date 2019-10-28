@@ -2,7 +2,13 @@ import React, {useState} from 'react';
 import firebase from 'react-native-firebase';
 import Icon from 'react-native-vector-icons/Feather';
 import ImagePicker from 'react-native-image-picker';
-import {View, TextInput, TouchableHighlight, StyleSheet} from 'react-native';
+import DocumentPicker from 'react-native-document-picker';
+import {
+  View,
+  TextInput,
+  TouchableWithoutFeedback,
+  StyleSheet,
+} from 'react-native';
 import {user} from '../models/user';
 
 function Sender({isActiveAttachment, openAttachment}) {
@@ -37,17 +43,35 @@ function Sender({isActiveAttachment, openAttachment}) {
 
   const showImagePicker = () => {
     ImagePicker.showImagePicker(options, response => {
-      uploadFile(response);
+      uploadImage(response);
     });
   };
 
   const showCamera = () => {
     ImagePicker.launchCamera(options, response => {
-      uploadFile(response);
+      uploadImage(response);
     });
   };
 
-  const uploadFile = response => {
+  const showFilePicker = async () => {
+    try {
+      const res = await DocumentPicker.pick();
+      console.log(
+        res.uri,
+        res.type, // mime type
+        res.name,
+        res.size,
+      );
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        // User cancelled the picker, exit any dialogs or menus and move on
+      } else {
+        throw err;
+      }
+    }
+  };
+
+  const uploadImage = response => {
     if (!response.didCancel && !response.error) {
       const source = {uri: response.uri};
 
@@ -74,20 +98,20 @@ function Sender({isActiveAttachment, openAttachment}) {
     }
   };
 
+  const uploadFile = response => {};
+
   return (
     <>
       <View style={styles.container}>
         <View style={styles.containerLeft}>
-          <TouchableHighlight
-            onPress={openAttachment}
-            underlayColor="transparent">
+          <TouchableWithoutFeedback onPress={openAttachment}>
             <Icon
               name="paperclip"
               size={25}
               color={isActiveAttachment ? '#2A87D3' : '#222222'}
               style={{paddingRight: 10}}
             />
-          </TouchableHighlight>
+          </TouchableWithoutFeedback>
           <TextInput
             style={styles.input}
             onChangeText={text => onChangeText(text)}
@@ -96,20 +120,20 @@ function Sender({isActiveAttachment, openAttachment}) {
             value={value}
           />
         </View>
-        <TouchableHighlight onPress={onTextSubmit} underlayColor="transparent">
+        <TouchableWithoutFeedback onPress={onTextSubmit}>
           <Icon name="send" size={25} />
-        </TouchableHighlight>
+        </TouchableWithoutFeedback>
       </View>
       <View style={styles.attachment}>
-        <TouchableHighlight
-          onPress={showImagePicker}
-          underlayColor="transparent">
+        <TouchableWithoutFeedback onPress={showImagePicker}>
           <Icon name="image" size={25} style={styles.attachmentIcon} />
-        </TouchableHighlight>
-        <Icon name="file" size={25} style={styles.attachmentIcon} />
-        <TouchableHighlight onPress={showCamera} underlayColor="transparent">
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={showFilePicker}>
+          <Icon name="file" size={25} style={styles.attachmentIcon} />
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={showCamera}>
           <Icon name="camera" size={25} style={styles.attachmentIcon} />
-        </TouchableHighlight>
+        </TouchableWithoutFeedback>
         <Icon name="mic" size={25} style={styles.attachmentIcon} />
       </View>
     </>
