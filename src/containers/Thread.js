@@ -19,7 +19,7 @@ function Thread({thread, isMe}) {
       .child(key)
       .child('vote')
       .once('value', snapshot => {
-        setVote(snapshot.numChildren());
+        setVote(parseInt(snapshot.numChildren()));
       });
   });
 
