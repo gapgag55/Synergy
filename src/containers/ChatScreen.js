@@ -54,9 +54,9 @@ function ChatScreen() {
               scrollToIndex={{viewPosition: 1}}
               inverted
               showsVerticalScrollIndicator={false}
-              renderItem={({item}) => (
+              renderItem={({item, index}) => (
                 <Thread
-                  key={item.key}
+                  key={`${item.key}-${index}`}
                   thread={item}
                   isMe={item.id === user.id}
                 />

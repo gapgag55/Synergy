@@ -118,14 +118,14 @@ function Sender() {
             value={value}
           />
         </View>
-        <TouchableHighlight onPress={onTextSubmit} underlayColor="transprent">
+        <TouchableHighlight onPress={onTextSubmit} underlayColor="transparent">
           <Icon name="send" size={25} />
         </TouchableHighlight>
       </View>
       <View style={styles.attachment}>
         <TouchableHighlight
           onPress={showImagePicker}
-          underlayColor="transprent">
+          underlayColor="transparent">
           <Icon name="image" size={25} style={styles.attachmentIcon} />
         </TouchableHighlight>
         <Icon name="file" size={25} style={styles.attachmentIcon} />

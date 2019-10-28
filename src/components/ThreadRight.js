@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, Text, TouchableHighlight, Image, StyleSheet} from 'react-native';
+import {View, Text, TouchableHighlight, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 function ThreadRight({content, vote, onVote}) {
   return (
     <View style={styles.thread}>
-      <TouchableHighlight onPress={onVote} underlayColor="transprent">
+      <TouchableHighlight onPress={onVote} underlayColor="transparent">
         <View style={styles.container}>
           <View style={styles.textContainer}>
             <Text style={styles.text}>{content}</Text>
