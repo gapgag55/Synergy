@@ -8,6 +8,8 @@
 
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import {Provider} from 'react-redux';
+import store from './src/reducers';
 
 import HomeScreen from './src/containers/HomeScreen';
 import ChatScreen from './src/containers/ChatScreen';
@@ -41,4 +43,8 @@ const MainNavigator = createStackNavigator(
 
 const App = createAppContainer(MainNavigator);
 
-export default App;
+export default (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);

@@ -2,15 +2,7 @@ import React, {useState} from 'react';
 import firebase from 'react-native-firebase';
 import Icon from 'react-native-vector-icons/Feather';
 import ImagePicker from 'react-native-image-picker';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableHighlight,
-  StyleSheet,
-  Animated,
-  Easing,
-} from 'react-native';
+import {View, TextInput, TouchableHighlight, StyleSheet} from 'react-native';
 import {user} from '../models/user';
 
 function Sender({isActiveAttachment, openAttachment}) {
@@ -112,12 +104,6 @@ function Sender({isActiveAttachment, openAttachment}) {
 }
 
 const styles = StyleSheet.create({
-  sender: {
-    transform: [{translateY: 20}],
-  },
-  activeAttachment: {
-    transform: [{translateY: -80}],
-  },
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',

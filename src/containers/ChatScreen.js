@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   FlatList,
@@ -65,15 +65,15 @@ function ChatScreen() {
     <View>
       <StatusBar barStyle="dark-content" />
       <View style={styles.container}>
-        <Animated.View
-          style={{
-            transform: [{translateY: activeAttachment}],
-          }}>
-          {isLoading ? (
-            <View style={styles.loading}>
-              <ActivityIndicator />
-            </View>
-          ) : (
+        {isLoading ? (
+          <View style={styles.loading}>
+            <ActivityIndicator />
+          </View>
+        ) : (
+          <Animated.View
+            style={{
+              transform: [{translateY: activeAttachment}],
+            }}>
             <View style={styles.thread}>
               <FlatList
                 style={styles.threadList}
@@ -91,14 +91,14 @@ function ChatScreen() {
                 keyExtractor={item => item.key}
               />
             </View>
-          )}
-          <View style={styles.sender}>
-            <Sender
-              isActiveAttachment={isActiveAttachment}
-              openAttachment={openAttachment}
-            />
-          </View>
-        </Animated.View>
+            <View style={styles.sender}>
+              <Sender
+                isActiveAttachment={isActiveAttachment}
+                openAttachment={openAttachment}
+              />
+            </View>
+          </Animated.View>
+        )}
       </View>
     </View>
   );
