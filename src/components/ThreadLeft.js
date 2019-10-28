@@ -6,11 +6,11 @@ function ThreadLeft({avatar, firstname, lastname, content, vote, onVote}) {
   return (
     <View>
       <TouchableHighlight onPress={onVote} underlayColor="transprent">
-        <View style={styles.textLeft}>
+        <View style={styles.container}>
           <Image style={styles.avatar} source={{uri: avatar}} />
           <View>
             <Text style={styles.name}>{`${firstname} ${lastname}`}</Text>
-            <View style={styles.text}>
+            <View style={styles.textContainer}>
               <Text>{content}</Text>
               {!!vote && (
                 <View style={styles.voteContainer}>
@@ -27,7 +27,7 @@ function ThreadLeft({avatar, firstname, lastname, content, vote, onVote}) {
 }
 
 const styles = StyleSheet.create({
-  textLeft: {
+  container: {
     flexDirection: 'row',
     maxWidth: '60%',
     paddingVertical: 5,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 5,
   },
-  text: {
+  textContainer: {
     backgroundColor: '#dddddd',
     alignSelf: 'flex-start',
     paddingHorizontal: 10,

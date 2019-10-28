@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import firebase from 'react-native-firebase';
 import ThreadLeft from '../components/ThreadLeft';
+import ThreadRight from '../components/ThreadRight';
 import User from '../models/user';
 
 function Thread({thread, isMe}) {
@@ -62,6 +63,8 @@ function Thread({thread, isMe}) {
       onVote={onVote}
     />
   );
+
+  // return <ThreadRight content={content} vote={vote} onVote={onVote} />;
 }
 
 export default Thread;
