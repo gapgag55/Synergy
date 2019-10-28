@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#ffffff',
+    fontSize: 17,
   },
   voteContainer: {
     flexDirection: 'row',

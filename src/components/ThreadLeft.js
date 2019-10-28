@@ -11,7 +11,7 @@ function ThreadLeft({avatar, firstname, lastname, content, vote, onVote}) {
           <View>
             <Text style={styles.name}>{`${firstname} ${lastname}`}</Text>
             <View style={styles.textContainer}>
-              <Text>{content}</Text>
+              <Text style={styles.text}>{content}</Text>
               {!!vote && (
                 <View style={styles.voteContainer}>
                   <Icon name="heart" size={10} color={'#ff0000'} />
@@ -53,6 +53,9 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 15,
     position: 'relative',
+  },
+  text: {
+    fontSize: 17,
   },
   voteContainer: {
     flexDirection: 'row',
