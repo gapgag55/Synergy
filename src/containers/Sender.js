@@ -37,7 +37,7 @@ function Sender() {
     onChangeText('');
   };
 
-  const showImagePicker = () => {
+  const playAnimation = () => {
     if (isActiveAttachment) {
       setAttachment(false);
 
@@ -55,6 +55,10 @@ function Sender() {
       duration: 200,
       useNativeDriver: true,
     }).start();
+  };
+
+  const openAttachment = () => {
+    playAnimation();
 
     // const options = {
     //   title: 'Select Photo',
@@ -91,9 +95,13 @@ function Sender() {
       <View style={styles.container}>
         <View style={styles.containerLeft}>
           <TouchableHighlight
-            onPress={showImagePicker}
+            onPress={openAttachment}
             underlayColor="transparent">
-            <Icon name="paperclip" size={25} />
+            <Icon
+              name="paperclip"
+              size={25}
+              color={isActiveAttachment ? '#2A87D3' : '#222222'}
+            />
           </TouchableHighlight>
           <TextInput
             style={styles.input}
