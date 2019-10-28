@@ -44,7 +44,8 @@ function Thread({thread, isMe}) {
       .equalTo(user.id)
       .once('value', snapshot => {
         if (snapshot.exists()) {
-          voteRef.child(Object.keys(snapshot.val())[0]).remove();
+          const key = Object.keys(snapshot.val())[0];
+          voteRef.child(key).remove();
         } else {
           voteRef.push({
             ...user,
