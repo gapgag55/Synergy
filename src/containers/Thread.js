@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import firebase from 'react-native-firebase';
 import ThreadLeft from '../components/ThreadLeft';
 import ThreadRight from '../components/ThreadRight';
-import User from '../models/user';
+import {user} from '../models/user';
 
 function Thread({thread, isMe}) {
   const {
@@ -41,30 +41,32 @@ function Thread({thread, isMe}) {
 
     voteRef
       .orderByChild('id')
-      .equalTo(User.id)
+      .equalTo(user.id)
       .once('value', snapshot => {
         if (snapshot.exists()) {
           voteRef.child(Object.keys(snapshot.val())[0]).remove();
         } else {
           voteRef.push({
-            ...User,
+            ...user,
           });
         }
       });
   };
 
-  return (
-    <ThreadLeft
-      avatar={avatar}
-      firstname={firstname}
-      lastname={lastname}
-      content={content}
-      vote={vote}
-      onVote={onVote}
-    />
-  );
-
-  // return <ThreadRight content={content} vote={vote} onVote={onVote} />;
+  if (isMe) {
+    return <ThreadRight content={content} vote={vote} onVote={onVote} />;
+  } else {
+    return (
+      <ThreadLeft
+        avatar={avatar}
+        firstname={firstname}
+        lastname={lastname}
+        content={content}
+        vote={vote}
+        onVote={onVote}
+      />
+    );
+  }
 }
 
 export default Thread;

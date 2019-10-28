@@ -9,6 +9,7 @@ import {
 import firebase from 'react-native-firebase';
 import Thread from './Thread';
 import Sender from './Sender';
+import {user} from '../models/user';
 
 function ChatScreen() {
   const [isLoading, setLoading] = useState(true);
@@ -52,7 +53,7 @@ function ChatScreen() {
                 <Thread
                   key={item.key}
                   thread={item}
-                  isMe={item.userid === 'UgOVkyBKBUbodalg6RjKKijtlis2'}
+                  isMe={item.id === user.id}
                 />
               )}
               keyExtractor={item => item.id}
