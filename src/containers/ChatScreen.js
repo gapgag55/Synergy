@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   StatusBar,
   StyleSheet,
+  Animated,
 } from 'react-native';
 import firebase from 'react-native-firebase';
 import Thread from './Thread';
@@ -14,6 +15,8 @@ import {user} from '../models/user';
 function ChatScreen() {
   const [isLoading, setLoading] = useState(true);
   const [dataSource, setDataSource] = useState([]);
+  const [isActiveAttachment, setAttachment] = useState(false);
+  const [activeAttachment] = useState(new Animated.Value(20));
 
   if (isLoading) {
     firebase
@@ -38,36 +41,64 @@ function ChatScreen() {
     }, 1000);
   }
 
+  const openAttachment = () => {
+    if (isActiveAttachment) {
+      setAttachment(false);
+
+      return Animated.timing(activeAttachment, {
+        toValue: 20,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    }
+
+    setAttachment(true);
+
+    Animated.timing(activeAttachment, {
+      toValue: -90,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  };
+
   return (
     <View>
       <StatusBar barStyle="dark-content" />
       <View style={styles.container}>
-        {isLoading ? (
-          <View style={styles.loading}>
-            <ActivityIndicator />
-          </View>
-        ) : (
-          <View style={styles.thread}>
-            <FlatList
-              style={styles.threadList}
-              data={dataSource}
-              scrollToIndex={{viewPosition: 1}}
-              inverted
-              showsVerticalScrollIndicator={false}
-              renderItem={({item, index}) => (
-                <Thread
-                  key={`${item.key}-${index}`}
-                  thread={item}
-                  isMe={item.id === user.id}
-                />
-              )}
-              keyExtractor={item => item.id}
+        <Animated.View
+          style={{
+            transform: [{translateY: activeAttachment}],
+          }}>
+          {isLoading ? (
+            <View style={styles.loading}>
+              <ActivityIndicator />
+            </View>
+          ) : (
+            <View style={styles.thread}>
+              <FlatList
+                style={styles.threadList}
+                data={dataSource}
+                scrollToIndex={{viewPosition: 1}}
+                inverted
+                showsVerticalScrollIndicator={false}
+                renderItem={({item, index}) => (
+                  <Thread
+                    key={item.key}
+                    thread={item}
+                    isMe={item.id === user.id}
+                  />
+                )}
+                keyExtractor={item => item.key}
+              />
+            </View>
+          )}
+          <View style={styles.sender}>
+            <Sender
+              isActiveAttachment={isActiveAttachment}
+              openAttachment={openAttachment}
             />
           </View>
-        )}
-        <View style={styles.sender}>
-          <Sender />
-        </View>
+        </Animated.View>
       </View>
     </View>
   );
@@ -89,7 +120,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   thread: {
-    height: '85%',
+    height: '80%',
   },
   threadList: {
     paddingTop: 20,

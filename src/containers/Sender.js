@@ -13,9 +13,7 @@ import {
 } from 'react-native';
 import {user} from '../models/user';
 
-function Sender() {
-  const [isActiveAttachment, setAttachment] = useState(false);
-  const [activeAttachment] = useState(new Animated.Value(20));
+function Sender({isActiveAttachment, openAttachment}) {
   const [value, onChangeText] = useState('');
 
   const onTextSubmit = () => {
@@ -35,26 +33,6 @@ function Sender() {
     }
 
     onChangeText('');
-  };
-
-  const openAttachment = () => {
-    if (isActiveAttachment) {
-      setAttachment(false);
-
-      return Animated.timing(activeAttachment, {
-        toValue: 20,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
-    }
-
-    setAttachment(true);
-
-    Animated.timing(activeAttachment, {
-      toValue: -80,
-      duration: 200,
-      useNativeDriver: true,
-    }).start();
   };
 
   const showImagePicker = () => {
@@ -94,10 +72,7 @@ function Sender() {
   };
 
   return (
-    <Animated.View
-      style={{
-        transform: [{translateY: activeAttachment}],
-      }}>
+    <>
       <View style={styles.container}>
         <View style={styles.containerLeft}>
           <TouchableHighlight
@@ -132,7 +107,7 @@ function Sender() {
         <Icon name="camera" size={25} style={styles.attachmentIcon} />
         <Icon name="mic" size={25} style={styles.attachmentIcon} />
       </View>
-    </Animated.View>
+    </>
   );
 }
 
@@ -182,7 +157,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    marginTop: 20,
+    marginTop: 25,
   },
   attachmentIcon: {
     borderWidth: 1,

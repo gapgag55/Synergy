@@ -1,5 +1,11 @@
 import React from 'react';
-import {View, Text, Image, TouchableHighlight, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  Animated,
+  TouchableHighlight,
+  StyleSheet,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 function ThreadImageRight({
@@ -12,12 +18,26 @@ function ThreadImageRight({
 }) {
   const {imageUrl} = content;
 
+  const imageAnimated = new Animated.Value(0);
+
+  const onImageLoad = () => {
+    Animated.timing(imageAnimated, {
+      toValue: 1,
+    }).start();
+  };
+
   return (
     <View style={styles.thread}>
-      <TouchableHighlight onPress={onVote} underlayColor="transprent">
+      <TouchableHighlight onPress={onVote} underlayColor="transparent">
         <View style={styles.container}>
           <View style={styles.textContainer}>
-            <Image style={styles.image} source={{uri: imageUrl}} />
+            <View style={styles.image}>
+              <Animated.Image
+                source={{uri: imageUrl}}
+                style={[styles.image, {opacity: imageAnimated}]}
+                onLoad={onImageLoad}
+              />
+            </View>
             {!!vote && (
               <View style={styles.voteContainer}>
                 <Icon name="heart" size={10} color={'#ff0000'} />
@@ -47,6 +67,7 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 10,
     marginRight: 10,
+    backgroundColor: '#dddddd',
   },
   name: {
     fontWeight: '500',
