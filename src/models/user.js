@@ -1,4 +1,4 @@
-export const user = {
+export const another = {
   id: 'UgOVkyBKBUbodalg6RjKKijtlis2',
   firstname: 'Sarayut',
   lastname: 'Lawilai',
@@ -6,7 +6,7 @@ export const user = {
     'https://firebasestorage.googleapis.com/v0/b/guester-f3953.appspot.com/o/avatars%2FUgOVkyBKBUbodalg6RjKKijtlis2.jpg?alt=media&token=96cc6b7e-7edf-411a-9190-30e0d8a443ae',
 };
 
-export const another = {
+export const user = {
   id: 'UgOVkyBKBUbodalg6RjKKijtlis1',
   firstname: 'Soda',
   lastname: 'Niramol',
