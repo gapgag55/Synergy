@@ -1,4 +1,4 @@
-package com.guesters;
+package com.android.guester;
 
 import com.facebook.react.ReactActivity;
 

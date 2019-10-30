@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "713099360012",
+    "firebase_url": "https://guester-f3953.firebaseio.com",
+    "project_id": "guester-f3953",
+    "storage_bucket": "guester-f3953.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713099360012:android:0712592e89c72726477b29",
+        "android_client_info": {
+          "package_name": "com.android.guester"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713099360012-rmi604020p9sc5ps00ifmft9p7egqjh8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkfyO-TGny3o_D7pZS11sETQD1RN3a0e0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713099360012-rmi604020p9sc5ps00ifmft9p7egqjh8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "713099360012-qqd838d5g3jclkfm4hdjpo5q0t2kkght.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mang.guester"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
