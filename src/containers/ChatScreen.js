@@ -8,6 +8,7 @@ import {
   Animated,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import firebase from 'react-native-firebase';
 import Thread from './Thread';
@@ -132,10 +133,12 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   thread: {
-    height: '72%',
+    height: Platform.OS === 'ios' ? '85%' : '80%',
   },
   threadList: {},
-  sender: {},
+  sender: {
+    height: Platform.OS === 'ios' ? '15%' : '20%',
+  },
 });
 
 export default ChatScreen;
