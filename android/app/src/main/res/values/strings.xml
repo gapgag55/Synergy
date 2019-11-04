@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">guesters</string>
+    <string name="facebook_app_id">2649873555034506</string>
+    <string name="fb_login_protocol_scheme">2649873555034506</string>
 </resources>
