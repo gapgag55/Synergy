@@ -14,7 +14,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.facebook.react.ReactApplication;
-import com.magus.fblogin.FacebookLoginPackage;
+// import com.magus.fblogin.FacebookLoginPackage;
 import com.facebook.react.shell.MainReactPackage;
 
 import java.lang.reflect.InvocationTargetException;
@@ -39,7 +39,7 @@ public class MainApplication extends Application implements ReactApplication {
           packages.add(new RNFirebaseAuthPackage());
           packages.add(new RNFirebaseDatabasePackage());
           packages.add(new RNFirebaseFirestorePackage());
-          packages.add(new RNGoogleSigninPackage());
+          // packages.add(new RNGoogleSigninPackage());
           // packages.add(new MainReactPackage());
           // packages.add(new FacebookLoginPackage());
 
