@@ -13,7 +13,6 @@
     "react": "16.9.0",
     "react-native": "0.61.2",
     "react-native-document-picker": "^3.2.4",
-    "react-native-facebook-login": "^1.6.1",
     "react-native-firebase": "^5.5.6",
     "react-native-gesture-handler": "^1.4.1",
     "react-native-google-signin": "^0.12.0",

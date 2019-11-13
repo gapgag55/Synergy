@@ -1,7 +1,5 @@
 import React from 'react';
 import {View, Button, StyleSheet, StatusBar} from 'react-native';
-import { handleFbLogin } from '../lib/auth';
-import { GoogleSignin, GoogleSigninButton } from '@react-native-community/google-signin';
 
 function HomeScreen({navigation}) {
   return (
@@ -12,16 +10,12 @@ function HomeScreen({navigation}) {
         title="Press me"
       />
       <Button
-        onPress={handleFbLogin}
+        onPress={() => {
+          console.log('Signin with Facebook');
+        }}
         title="Sign in with facebook"
         color="#3c50e8"
       />
-      <GoogleSigninButton
-        style={{ width: 192, height: 48 }}
-        size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Dark}
-        onPress={this._signIn}
-        disabled={this.state.isSigninInProgress} />
     </View>
   );
 }
