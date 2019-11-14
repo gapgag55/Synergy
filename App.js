@@ -14,6 +14,7 @@ import store from './src/reducers';
 
 import HomeScreen from './src/containers/HomeScreen';
 import ChatScreen from './src/containers/ChatScreen';
+import LoginScreen from './src/containers/Login';
 
 const navigationOptions = {
   headerStyle: {
@@ -34,6 +35,10 @@ const MainNavigator = createStackNavigator(
     },
     ChatScreen: {
       screen: ChatScreen,
+      navigationOptions,
+    },
+    LoginScreen: {
+      screen: LoginScreen,
       navigationOptions,
     },
   },

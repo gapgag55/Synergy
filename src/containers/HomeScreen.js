@@ -16,11 +16,15 @@ function HomeScreen({navigation}) {
         title="Sign in with facebook"
         color="#3c50e8"
       />
+      <Button
+        onPress={() => navigation.navigate('LoginScreen')}
+        title="Login"
+      />
     </View>
   );
 }
 
-HomeScreen.navigationOptions = ({navigation}) => ({
+HomeScreen.navigationOptions = () => ({
   title: 'Hello!',
 });
 

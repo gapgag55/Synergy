@@ -6,14 +6,14 @@ export default class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image
+        {/* <Image
           source={require('../assets/images/4c68fb90-8c18-4a35-a967-2324038b40d2_200x200.png')}
           resizeMode="contain"
           style={styles.synergyLogo}
-        />
+        /> */}
         <View style={styles.SignupTabStack}>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Signup')}
+            onPress={() => console.log('Go to Sign Up Page')}
             style={styles.SignupTab}>
             <View style={styles.rect2}>
               <Text style={styles.signUpText}>Sign Up</Text>
