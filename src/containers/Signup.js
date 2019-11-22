@@ -6,11 +6,11 @@ export default class Signup extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image
+        {/* <Image
           source={require('../assets/images/4c68fb90-8c18-4a35-a967-2324038b40d2_200x200.png')}
           resizeMode="contain"
           style={styles.Logo}
-        />
+        /> */}
         <View style={styles.LoginTabStack}>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Login')}
