@@ -9,12 +9,16 @@ function HomeScreen({navigation}) {
         onPress={() => navigation.navigate('ChatScreen')}
         title="Press me"
       />
-      <Button
+      {/* <Button
         onPress={() => {
           console.log('Signin with Facebook');
         }}
         title="Sign in with facebook"
         color="#3c50e8"
+      /> */}
+      <Button
+        onPress={() => navigation.navigate('LoginScreen')}
+        title="Login"
       />
       <Button
         onPress={() => navigation.navigate('LoginScreen')}

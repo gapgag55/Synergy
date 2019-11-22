@@ -1,8 +1,72 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Image, TouchableOpacity, Text} from 'react-native';
+import {AppRegistry, StyleSheet, View, Image, TouchableOpacity, Text} from 'react-native';
 import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import FBSDK, {LoginButton, LoginManager, AccessToken} from 'react-native-fbsdk';
+import firebase from 'react-native-firebase';
+
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from '@react-native-community/google-signin';
+
+var config = 
+{
+  apiKey: "AIzaSyDc6qfW4vZcGCVEcIuOW7lPMzsl4wDymA0",
+  authDomain: "https://guester-f3953.firebaseapp.com/",
+  databaseURL: "https://guester-f3953.firebaseio.com/"
+}
+
+// const firebaseRef = firebase.initializeApp(config);
+const firebaseRef = firebase.app();
+
 export default class Login extends Component {
+  _fbAuth()
+  {
+    // console.log('in _fbAuth');
+    // console.log(LoginManager.logInWithPermissions);
+    LoginManager.logInWithPermissions(['public_profile', 'email']).then(
+      function(result)
+      {
+        if(result.isCancelled)
+        {
+          console.log('login cancelled');
+        }
+        else
+        {
+          AccessToken.getCurrentAccessToken().then((accessTokenData)=>{
+            const credential = firebase.auth.FacebookAuthProvider.credential(accessTokenData.accessToken);
+            firebase.auth().signInWithCredential(credential).then((result) => {
+              console.log('login suecssful');
+            }, (error) => {
+              console.log(error);
+            })
+          }, (error => {
+            console.log('error occured: '+error);
+          }))
+        }
+      },
+      function(error)
+      {
+        console.log(error);
+        console.log('loing error T-T');
+      }  
+    )
+  }
+
+  _googleAuth()
+  {
+    GoogleSignin.configure({
+      scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+      webClientId: 'AIzaSyDkfyO-TGny3o_D7pZS11sETQD1RN3a0e0' // required
+    });
+
+    const { accessToken, idToken } = GoogleSignin.signIn();
+    const credential = firebase.auth.GoogleAuthProvider.credential(idToken, accessToken);
+    firebase.auth().signInWithCredential(credential);
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -30,10 +94,33 @@ export default class Login extends Component {
                 <View style={styles.fbIconRow}>
                   <MaterialCommunityIconsIcon
                     name="facebook"
+                    // onPress={() => console.log('signin with facebook')}
+                    onPress={this._fbAuth}
                     style={styles.fbIcon}
                   />
                   <Text style={styles.fbLoginText}>Log In with Facebook</Text>
                 </View>
+                {/* <View>
+                  <LoginButton
+                    onLoginFinished={
+                      (error, result) => {
+                        if (error) {
+                          console.log(error);
+                          console.log(result);
+                          console.log("login has error: " + result.error);
+                        } else if (result.isCancelled) {
+                          console.log("login is cancelled.");
+                        } else {
+                          AccessToken.getCurrentAccessToken().then(
+                            (data) => {
+                              console.log(data.accessToken.toString())
+                            }
+                          )
+                        }
+                      }
+                    }
+                    onLogoutFinished={() => console.log("logout.")}/>
+                </View> */}
               </View>
             </View>
             <View style={styles.ggLogin}>
@@ -41,6 +128,7 @@ export default class Login extends Component {
                 <View style={styles.rect5}>
                   <View style={styles.ggIconRow}>
                     <MaterialCommunityIconsIcon
+                      onPress={() => this._googleAuth()}
                       name="gmail"
                       style={styles.ggIcon}
                     />
