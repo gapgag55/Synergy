@@ -20,15 +20,15 @@ function HomeScreen({navigation}) {
         onPress={() => navigation.navigate('LoginScreen')}
         title="Login"
       />
-      {/* <Button
-        onPress={() => navigation.navigate('SignupScreen')}
-        title="Signup"
-      /> */}
+      <Button
+        onPress={() => navigation.navigate('LoginScreen')}
+        title="Login"
+      />
     </View>
   );
 }
 
-HomeScreen.navigationOptions = ({navigation}) => ({
+HomeScreen.navigationOptions = () => ({
   title: 'Hello!',
 });
 
