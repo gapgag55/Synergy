@@ -14,6 +14,8 @@ import store from './src/reducers';
 
 import HomeScreen from './src/containers/HomeScreen';
 import ChatScreen from './src/containers/ChatScreen';
+import LoginScreen from './src/containers/Login';
+import SignupScreen from './src/containers/Signup';
 
 const navigationOptions = {
   headerStyle: {
@@ -36,6 +38,14 @@ const MainNavigator = createStackNavigator(
       screen: ChatScreen,
       navigationOptions,
     },
+    LoginScreen: {
+      screen: LoginScreen,
+      navigationOptions,
+    },
+    SignupScreen: {
+      screen: SignupScreen,
+      navigationOptions,
+    }
   },
   {
     initialRouteName: 'HomeScreen',
