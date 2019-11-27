@@ -10,8 +10,7 @@ export async function facebookLogin(navigation) {
     ]);
 
     if (result.isCancelled) {
-      // handle this however suites the flow of your app
-      throw new Error('User cancelled request');
+      return;
     }
 
     console.log(

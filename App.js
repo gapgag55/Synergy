@@ -60,7 +60,10 @@ const AppStack = createStackNavigator(
 const AuthStack = createStackNavigator({
   LoginScreen: {
     screen: LoginScreen,
-    navigationOptions,
+    navigationOptions: {
+      ...navigationOptions,
+      header: null,
+    },
   },
 });
 
