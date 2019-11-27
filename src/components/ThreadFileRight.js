@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     maxWidth: '60%',
-    paddingHorizontal: 5,
+    paddingHorizontal: 10,
     marginBottom: 5,
   },
   name: {
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    left: -10,
+    left: -30,
     bottom: 0,
     backgroundColor: '#ffffff',
     paddingVertical: 2,

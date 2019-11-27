@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    left: -20,
+    left: -30,
     bottom: -5,
     minWidth: 40,
     backgroundColor: '#ffffff',
