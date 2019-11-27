@@ -14,8 +14,11 @@ function Sender({isActiveAttachment, openAttachment}) {
   const [value, onChangeText] = useState('');
   const user = firebase.auth().currentUser;
 
+  const name = user.displayName.split(' ');
+
   const userData = {
-    displayName: user.displayName,
+    firstname: name[0],
+    lastname: name[1],
     id: user.uid,
     avatar: user.photoURL,
   };
