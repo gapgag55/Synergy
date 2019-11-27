@@ -7,15 +7,17 @@
  */
 
 import React from 'react';
-import {createAppContainer} from 'react-navigation';
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {Provider} from 'react-redux';
 import store from './src/reducers';
 
+import AuthLoadingScreen from './src/containers/AuthLoading';
 import HomeScreen from './src/containers/HomeScreen';
+import ProfileScreen from './src/containers/ProfileScreen';
 import ChatScreen from './src/containers/ChatScreen';
-import LoginScreen from './src/containers/Login';
-import SignupScreen from './src/containers/Signup';
+import GroupScreen from './src/containers/GroupScreen';
+import LoginScreen from './src/containers/LoginScreen';
 
 const navigationOptions = {
   headerStyle: {
@@ -28,31 +30,52 @@ const navigationOptions = {
   backgroundColor: '#f0f0f0',
 };
 
-const MainNavigator = createStackNavigator(
+const AppStack = createStackNavigator(
   {
     HomeScreen: {
       screen: HomeScreen,
+      navigationOptions: {
+        ...navigationOptions,
+        header: null,
+      },
+    },
+    ProfileScreen: {
+      screen: ProfileScreen,
+      navigationOptions,
+    },
+    GroupScreen: {
+      screen: GroupScreen,
       navigationOptions,
     },
     ChatScreen: {
       screen: ChatScreen,
       navigationOptions,
     },
-    LoginScreen: {
-      screen: LoginScreen,
-      navigationOptions,
-    },
-    SignupScreen: {
-      screen: SignupScreen,
-      navigationOptions,
-    }
   },
   {
     initialRouteName: 'HomeScreen',
   },
 );
 
-const App = createAppContainer(MainNavigator);
+const AuthStack = createStackNavigator({
+  LoginScreen: {
+    screen: LoginScreen,
+    navigationOptions,
+  },
+});
+
+const App = createAppContainer(
+  createSwitchNavigator(
+    {
+      AuthLoading: AuthLoadingScreen,
+      App: AppStack,
+      Auth: AuthStack,
+    },
+    {
+      initialRouteName: 'AuthLoading',
+    },
+  ),
+);
 
 export default () => (
   <Provider store={store}>

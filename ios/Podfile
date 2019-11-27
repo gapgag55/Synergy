@@ -42,6 +42,8 @@ target 'guesters' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
+
   target 'guestersTests' do
     inherit! :search_paths
     # Pods for testing
@@ -58,4 +60,21 @@ target 'guesters-tvOS' do
     # Pods for testing
   end
 
+end
+
+post_install do |installer|
+  installer.generated_projects.each do |project|
+    project.build_configurations.each do |config|
+      if config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'].to_f < 8.0
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
+      end
+    end
+    project.targets.each do |target|
+      target.build_configurations.each do |config|
+        if config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'].to_f < 8.0
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
+        end
+      end
+    end
+  end
 end
