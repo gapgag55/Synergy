@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">guesters</string>
-    <string name="facebook_app_id">2649873555034506</string>
-    <string name="fb_login_protocol_scheme">fb2649873555034506</string>
+    <string name="app_name">Synergy</string>
+    <string name="facebook_app_id">432047397728210</string>
+    <string name="fb_login_protocol_scheme">fd80c9eda921899e6dbacc07718ff7b7</string>
 </resources>

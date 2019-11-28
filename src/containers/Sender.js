@@ -11,10 +11,19 @@ import {
   StyleSheet,
   TouchableOpacity
 } from 'react-native';
-import {user} from '../models/user';
 
 function Sender({isActiveAttachment, openAttachment}) {
   const [value, onChangeText] = useState('');
+  const user = firebase.auth().currentUser;
+
+  const name = user.displayName.split(' ');
+
+  const userData = {
+    firstname: name[0],
+    lastname: name[1],
+    id: user.uid,
+    avatar: user.photoURL,
+  };
 
   const options = {
     title: 'Select Photo',
@@ -36,7 +45,7 @@ function Sender({isActiveAttachment, openAttachment}) {
         content: value,
         timestamp: Date.now(),
         type: 'text',
-        ...user,
+        ...userData,
       });
     }
 
@@ -101,7 +110,7 @@ function Sender({isActiveAttachment, openAttachment}) {
           },
           timestamp: Date.now(),
           type: 'image',
-          ...user,
+          ...userData,
         });
       });
     }
@@ -126,7 +135,7 @@ function Sender({isActiveAttachment, openAttachment}) {
         },
         timestamp: Date.now(),
         type: 'file',
-        ...user,
+        ...userData,
       });
     });
   };

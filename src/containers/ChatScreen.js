@@ -13,13 +13,14 @@ import {
 import firebase from 'react-native-firebase';
 import Thread from './Thread';
 import Sender from './Sender';
-import {user} from '../models/user';
 
 function ChatScreen() {
   const [isLoading, setLoading] = useState(true);
   const [dataSource, setDataSource] = useState([]);
   const [isActiveAttachment, setAttachment] = useState(false);
   const [activeAttachment] = useState(new Animated.Value(0));
+
+  const user = firebase.auth().currentUser;
 
   useEffect(() => {
     if (isLoading) {
@@ -97,7 +98,7 @@ function ChatScreen() {
                     <Thread
                       key={item.key}
                       thread={item}
-                      isMe={item.id === user.id}
+                      isMe={item.id === user.uid}
                     />
                   )}
                   keyExtractor={item => item.key}
