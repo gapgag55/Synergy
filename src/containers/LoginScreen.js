@@ -25,7 +25,7 @@ function LoginScreen({navigation}) {
         </TouchableWithoutFeedback>
       </View>
       <View style={[styles.socialButton, styles.google]}>
-        <TouchableWithoutFeedback onPress={() => googleLogin()}>
+        <TouchableWithoutFeedback onPress={() => googleLogin(navigation)}>
           <View style={styles.social}>
             <Icon name="google" size={25} style={styles.socialIcon} />
             <Text style={styles.loginButton}>Log In with Google</Text>

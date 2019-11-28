@@ -34,15 +34,11 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
-          // Packages that cannot be autolinked yet can be added manually here, for example:
-          // packages.add(new RNFirebasePackage());
+
           packages.add(new RNFirebaseStoragePackage());
           packages.add(new RNFirebaseAuthPackage());
           packages.add(new RNFirebaseDatabasePackage());
           packages.add(new RNFirebaseFirestorePackage());
-          // packages.add(new RNGoogleSigninPackage());
-          // packages.add(new MainReactPackage());
-          // packages.add(new FBSDKPackage());
 
           return packages;
         }
@@ -74,7 +70,7 @@ public class MainApplication extends Application implements ReactApplication {
     if (BuildConfig.DEBUG) {
       try {
         /*
-         We use reflection here to pick up the class that initializes Flipper,
+        We use reflection here to pick up the class that initializes Flipper,
         since Flipper library is not available in release mode
         */
         Class<?> aClass = Class.forName("com.facebook.flipper.ReactNativeFlipper");
