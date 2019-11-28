@@ -8,18 +8,16 @@ import ThreadImageRight from '../components/ThreadImageRight';
 import ThreadFileLeft from '../components/ThreadFileLeft';
 import ThreadFileRight from '../components/ThreadFileRight';
 
-
 function Thread({thread, isMe}) {
   const {key, avatar, content, firstname, lastname, timestamp, type} = thread;
   const [vote, setVote] = useState(0);
 
-  var timestamp2 = timestamp*1000;
-  var date = new Date(timestamp2)
+  var timestamp2 = timestamp;
+  var date = new Date(timestamp2);
   var hrs = date.getHours();
   var minutes = date.getMinutes();
 
-  timestamp2 = hrs+':'+minutes
-  console.log(timestamp2)
+  timestamp2 = hrs + ':' + minutes;
 
   useEffect(() => {
     firebase
@@ -58,11 +56,32 @@ function Thread({thread, isMe}) {
 
   if (isMe) {
     if (type === 'file') {
-      return <ThreadFileRight content={content} timestamp = {timestamp2} vote={vote} onVote={onVote} />;
+      return (
+        <ThreadFileRight
+          content={content}
+          timestamp={timestamp2}
+          vote={vote}
+          onVote={onVote}
+        />
+      );
     } else if (type === 'image') {
-      return <ThreadImageRight content={content} timestamp = {timestamp2} vote={vote} onVote={onVote} />;
+      return (
+        <ThreadImageRight
+          content={content}
+          timestamp={timestamp2}
+          vote={vote}
+          onVote={onVote}
+        />
+      );
     } else {
-      return <ThreadRight content={content} timestamp = {timestamp2} vote={vote} onVote={onVote} />;
+      return (
+        <ThreadRight
+          content={content}
+          timestamp={timestamp2}
+          vote={vote}
+          onVote={onVote}
+        />
+      );
     }
   } else {
     if (type === 'file') {
@@ -72,7 +91,7 @@ function Thread({thread, isMe}) {
           firstname={firstname}
           lastname={lastname}
           content={content}
-          timestamp = {timestamp2}
+          timestamp={timestamp2}
           vote={vote}
           onVote={onVote}
         />
@@ -84,7 +103,7 @@ function Thread({thread, isMe}) {
           firstname={firstname}
           lastname={lastname}
           content={content}
-          timestamp = {timestamp2}
+          timestamp={timestamp2}
           vote={vote}
           onVote={onVote}
         />
@@ -96,7 +115,7 @@ function Thread({thread, isMe}) {
           firstname={firstname}
           lastname={lastname}
           content={content}
-          timestamp = {timestamp2}
+          timestamp={timestamp2}
           vote={vote}
           onVote={onVote}
         />

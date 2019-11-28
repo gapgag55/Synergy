@@ -9,7 +9,7 @@ import {
   TouchableWithoutFeedback,
   TouchableHighlight,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 
 function Sender({isActiveAttachment, openAttachment}) {
@@ -43,7 +43,7 @@ function Sender({isActiveAttachment, openAttachment}) {
 
       thread.set({
         content: value,
-        timestamp: Date.now(),
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
         type: 'text',
         ...userData,
       });
@@ -53,7 +53,7 @@ function Sender({isActiveAttachment, openAttachment}) {
   };
 
   const showImagePicker = () => {
-    console.log('button pressed')
+    console.log('button pressed');
     ImagePicker.showImagePicker(options, response => {
       uploadImage(response);
     });
@@ -64,7 +64,7 @@ function Sender({isActiveAttachment, openAttachment}) {
       uploadImage(response);
     });
   };
-   
+
   const showFilePicker = async () => {
     try {
       const res = await DocumentPicker.pick();
@@ -108,7 +108,7 @@ function Sender({isActiveAttachment, openAttachment}) {
           content: {
             imageUrl: image.downloadURL,
           },
-          timestamp: Date.now(),
+          timestamp: firebase.database.ServerValue.TIMESTAMP,
           type: 'image',
           ...userData,
         });
@@ -133,7 +133,7 @@ function Sender({isActiveAttachment, openAttachment}) {
           fileSize: source.size,
           fileUrl: file.downloadURL,
         },
-        timestamp: Date.now(),
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
         type: 'file',
         ...userData,
       });
@@ -165,7 +165,7 @@ function Sender({isActiveAttachment, openAttachment}) {
         </TouchableWithoutFeedback>
       </View>
       <View style={styles.attachment}>
-        <TouchableWithoutFeedback onPress={()=>console.log('baba')} >
+        <TouchableWithoutFeedback onPress={() => console.log('baba')}>
           <Icon name="image" size={25} style={styles.attachmentIcon} />
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback onPress={showFilePicker}>
@@ -174,7 +174,7 @@ function Sender({isActiveAttachment, openAttachment}) {
         <TouchableWithoutFeedback onPress={showCamera}>
           <Icon name="camera" size={25} style={styles.attachmentIcon} />
         </TouchableWithoutFeedback>
-          <Icon name="mic" size={25} style={styles.attachmentIcon} />
+        <Icon name="mic" size={25} style={styles.attachmentIcon} />
       </View>
     </>
   );
@@ -208,8 +208,7 @@ const styles = StyleSheet.create({
   input: {
     width: '80%',
     color: '#222222',
-    padding: 20,
-    
+    padding: 10,
   },
   attachment: {
     flexDirection: 'row',

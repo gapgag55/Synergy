@@ -49,22 +49,27 @@ export async function googleLogin(navigation) {
     // add any configuration settings here:
     await GoogleSignin.configure();
 
-    const data = await GoogleSignin.signIn();
+    const data = await GoogleSignin.signIn({
+      webClientId:
+        '713099360012-316pi6cjrd1vgoe631m1jnsq8kiqg2ja.apps.googleusercontent.com',
+    });
 
-    // create a new firebase credential with the token
-    const credential = firebase.auth.GoogleAuthProvider.credential(
-      data.idToken,
-      data.accessToken,
-    );
+    console.log(data);
 
-    // login with credential
-    const firebaseUserCredential = await firebase
-      .auth()
-      .signInWithCredential(credential);
+    // create a new firebase credential with the tokenOkay
+    // const credential = firebase.auth.GoogleAuthProvider.credential(
+    //   data.idToken,
+    //   data.accessToken,
+    // );
 
-    if (firebaseUserCredential.user) {
-      navigation.navigate('HomeScreen');
-    }
+    // // login with credential
+    // const firebaseUserCredential = await firebase
+    //   .auth()
+    //   .signInWithCredential(credential);
+
+    // if (firebaseUserCredential.user) {
+    //   navigation.navigate('HomeScreen');
+    // }
   } catch (e) {
     console.error(e);
   }

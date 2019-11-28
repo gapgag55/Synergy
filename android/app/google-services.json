@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "713099360012-316pi6cjrd1vgoe631m1jnsq8kiqg2ja.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.guester",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "713099360012-rmi604020p9sc5ps00ifmft9p7egqjh8.apps.googleusercontent.com",
           "client_type": 3
         }

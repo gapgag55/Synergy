@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 function ThreadRight({content, timestamp, vote, onVote}) {
   return (
     <View style={styles.thread}>
+      <Text style={styles.time}>{timestamp}</Text>
       <TouchableHighlight onPress={onVote} underlayColor="transparent">
         <View style={styles.container}>
           <View style={styles.contentContainer}>
@@ -18,13 +19,14 @@ function ThreadRight({content, timestamp, vote, onVote}) {
           </View>
         </View>
       </TouchableHighlight>
-      <Text>{timestamp}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   thread: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
     alignItems: 'flex-end',
   },
   container: {
@@ -43,6 +45,11 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     position: 'relative',
   },
+  time: {
+    fontSize: 10,
+    color: '#999999',
+    marginBottom: 5,
+  },
   text: {
     color: '#ffffff',
     fontSize: 16,
@@ -51,16 +58,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    left: -30,
+    left: -5,
     bottom: -5,
-    minWidth: 40,
     backgroundColor: '#ffffff',
-    paddingVertical: 2,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     borderRadius: 10,
   },
   voteText: {
-    fontSize: 15,
+    fontSize: 10,
     marginLeft: 2,
   },
 });

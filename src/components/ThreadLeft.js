@@ -2,7 +2,15 @@ import React from 'react';
 import {View, Text, TouchableHighlight, Image, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function ThreadLeft({avatar, firstname, lastname, content, timestamp, vote, onVote}) {
+function ThreadLeft({
+  avatar,
+  firstname,
+  lastname,
+  content,
+  timestamp,
+  vote,
+  onVote,
+}) {
   return (
     <View>
       <TouchableHighlight onPress={onVote} underlayColor="transparent">
@@ -10,19 +18,21 @@ function ThreadLeft({avatar, firstname, lastname, content, timestamp, vote, onVo
           <Image style={styles.avatar} source={{uri: avatar}} />
           <View>
             <Text style={styles.name}>{`${firstname} ${lastname}`}</Text>
-            <View style={styles.contentContainer}>
-              <Text style={styles.text}>{content}</Text>
-              {!!vote && (
-                <View style={styles.voteContainer}>
-                  <Icon name="heart" size={10} color={'#ff0000'} />
-                  <Text style={styles.voteText}>{vote}</Text>
-                </View>
-              )}
+            <View style={styles.content}>
+              <View style={styles.contentContainer}>
+                <Text style={styles.text}>{content}</Text>
+                {!!vote && (
+                  <View style={styles.voteContainer}>
+                    <Icon name="heart" size={10} color={'#ff0000'} />
+                    <Text style={styles.voteText}>{vote}</Text>
+                  </View>
+                )}
+              </View>
+              <Text style={styles.time}>{timestamp}</Text>
             </View>
           </View>
         </View>
       </TouchableHighlight>
-      <Text>{timestamp}</Text>
     </View>
   );
 }
@@ -30,7 +40,6 @@ function ThreadLeft({avatar, firstname, lastname, content, timestamp, vote, onVo
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    maxWidth: '60%',
     paddingVertical: 5,
     paddingHorizontal: 5,
     marginBottom: 5,
@@ -55,6 +64,16 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 15,
     position: 'relative',
   },
+  time: {
+    fontSize: 10,
+    color: '#999999',
+    marginBottom: 5,
+    marginLeft: 5,
+  },
+  content: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
   text: {
     fontSize: 16,
   },
@@ -62,15 +81,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    right: -30,
+    right: -5,
     bottom: -5,
     backgroundColor: '#ffffff',
-    paddingVertical: 2,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     borderRadius: 10,
   },
   voteText: {
-    fontSize: 15,
+    fontSize: 10,
     marginLeft: 2,
   },
 });
