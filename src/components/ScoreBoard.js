@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Text, View, StyleSheet, Image, ActivityIndicator} from 'react-native';
 import firebase from 'react-native-firebase';
+import {connect} from 'react-redux';
 
-function ScoreBoard() {
+function ScoreBoard({channel}) {
   const [isLoading, setLoading] = useState(true);
   const [chatters, setChatter] = useState([]);
 
@@ -11,7 +12,7 @@ function ScoreBoard() {
       firebase
         .database()
         .ref('channels')
-        .child('practical-software-engineer')
+        .child(channel.key)
         .on('value', snapshot => {
           if (snapshot._value) {
             let messages = Object.keys(snapshot._value).map(key => {
@@ -69,7 +70,7 @@ function ScoreBoard() {
 
       setLoading(false);
     }
-  }, [isLoading]);
+  }, [channel.key, isLoading]);
 
   let awards = [
     require('../images/best.png'),
@@ -167,4 +168,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ScoreBoard;
+const mapStateToProps = state => ({
+  channel: state.channel.channel,
+});
+
+export default connect(mapStateToProps)(ScoreBoard);

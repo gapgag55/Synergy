@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import firebase from 'react-native-firebase';
+import {connect} from 'react-redux';
 import ThreadLeft from '../components/ThreadLeft';
 import ThreadRight from '../components/ThreadRight';
 import user from '../models/user';
@@ -9,7 +10,7 @@ import ThreadImageRight from '../components/ThreadImageRight';
 import ThreadFileLeft from '../components/ThreadFileLeft';
 import ThreadFileRight from '../components/ThreadFileRight';
 
-function Thread({thread, isMe}) {
+function Thread({channel, thread, isMe}) {
   const {key, avatar, content, firstname, lastname, timestamp, type} = thread;
   const [vote, setVote] = useState(0);
 
@@ -24,7 +25,7 @@ function Thread({thread, isMe}) {
     firebase
       .database()
       .ref('channels')
-      .child('practical-software-engineer')
+      .child(channel.key)
       .child(key)
       .child('vote')
       .once('value', snapshot => {
@@ -36,7 +37,7 @@ function Thread({thread, isMe}) {
     const voteRef = firebase
       .database()
       .ref('channels')
-      .child('practical-software-engineer')
+      .child(channel.key)
       .child(key)
       .child('vote');
 
@@ -129,4 +130,8 @@ function Thread({thread, isMe}) {
   }
 }
 
-export default Thread;
+const mapStateToProps = state => ({
+  channel: state.channel.channel,
+});
+
+export default connect(mapStateToProps)(Thread);
