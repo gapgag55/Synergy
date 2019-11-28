@@ -16,6 +16,7 @@ import AuthLoadingScreen from './src/containers/AuthLoading';
 import HomeScreen from './src/containers/HomeScreen';
 import ProfileScreen from './src/containers/ProfileScreen';
 import ChatScreen from './src/containers/ChatScreen';
+import ScoreBoard from './src/components/ScoreBoard';
 import GroupScreen from './src/containers/GroupScreen';
 import LoginScreen from './src/containers/LoginScreen';
 
@@ -46,6 +47,9 @@ const AppStack = createStackNavigator(
     GroupScreen: {
       screen: GroupScreen,
       navigationOptions,
+    },
+    ScoreBoard:{
+      screen: ScoreBoard,
     },
     ChatScreen: {
       screen: ChatScreen,

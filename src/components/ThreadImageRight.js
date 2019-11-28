@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function ThreadImageRight({content, vote, onVote}) {
+function ThreadImageRight({content, timestamp, vote, onVote}) {
   const {imageUrl} = content;
 
   const imageAnimated = new Animated.Value(0);
@@ -40,6 +40,7 @@ function ThreadImageRight({content, vote, onVote}) {
           </View>
         </View>
       </TouchableWithoutFeedback>
+      <Text>{timestamp}</Text>
     </View>
   );
 }
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    left: -10,
+    left: -30,
     bottom: 0,
     backgroundColor: '#ffffff',
     paddingVertical: 2,

@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, TouchableWithoutFeedback, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function ThreadFileRight({content, vote, onVote}) {
+function ThreadFileRight({content, timestamp, vote, onVote}) {
   const {fileName, fileSize, fileUrl} = content;
 
   const getFileSize = size => {
@@ -52,9 +52,12 @@ function ThreadFileRight({content, vote, onVote}) {
                 <Text style={styles.voteText}>{vote}</Text>
               </View>
             )}
+           
           </View>
+          
         </View>
       </TouchableWithoutFeedback>
+      <Text>{timestamp}</Text>  
     </View>
   );
 }
@@ -66,7 +69,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     maxWidth: '60%',
-    paddingHorizontal: 5,
+    paddingHorizontal: 10,
     marginBottom: 5,
   },
   name: {
@@ -109,7 +112,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    left: -10,
+    left: -30,
     bottom: 0,
     backgroundColor: '#ffffff',
     paddingVertical: 2,

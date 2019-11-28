@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, TouchableHighlight, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function ThreadRight({content, vote, onVote}) {
+function ThreadRight({content, timestamp, vote, onVote}) {
   return (
     <View style={styles.thread}>
       <TouchableHighlight onPress={onVote} underlayColor="transparent">
@@ -18,6 +18,7 @@ function ThreadRight({content, vote, onVote}) {
           </View>
         </View>
       </TouchableHighlight>
+      <Text>{timestamp}</Text>
     </View>
   );
 }
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    left: -20,
+    left: -30,
     bottom: -5,
     minWidth: 40,
     backgroundColor: '#ffffff',

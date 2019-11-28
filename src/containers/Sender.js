@@ -7,7 +7,9 @@ import {
   View,
   TextInput,
   TouchableWithoutFeedback,
+  TouchableHighlight,
   StyleSheet,
+  TouchableOpacity
 } from 'react-native';
 
 function Sender({isActiveAttachment, openAttachment}) {
@@ -51,6 +53,7 @@ function Sender({isActiveAttachment, openAttachment}) {
   };
 
   const showImagePicker = () => {
+    console.log('button pressed')
     ImagePicker.showImagePicker(options, response => {
       uploadImage(response);
     });
@@ -61,7 +64,7 @@ function Sender({isActiveAttachment, openAttachment}) {
       uploadImage(response);
     });
   };
-
+   
   const showFilePicker = async () => {
     try {
       const res = await DocumentPicker.pick();
@@ -162,7 +165,7 @@ function Sender({isActiveAttachment, openAttachment}) {
         </TouchableWithoutFeedback>
       </View>
       <View style={styles.attachment}>
-        <TouchableWithoutFeedback onPress={showImagePicker}>
+        <TouchableWithoutFeedback onPress={()=>console.log('baba')} >
           <Icon name="image" size={25} style={styles.attachmentIcon} />
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback onPress={showFilePicker}>
@@ -171,7 +174,7 @@ function Sender({isActiveAttachment, openAttachment}) {
         <TouchableWithoutFeedback onPress={showCamera}>
           <Icon name="camera" size={25} style={styles.attachmentIcon} />
         </TouchableWithoutFeedback>
-        <Icon name="mic" size={25} style={styles.attachmentIcon} />
+          <Icon name="mic" size={25} style={styles.attachmentIcon} />
       </View>
     </>
   );
@@ -206,6 +209,7 @@ const styles = StyleSheet.create({
     width: '80%',
     color: '#222222',
     padding: 20,
+    
   },
   attachment: {
     flexDirection: 'row',
