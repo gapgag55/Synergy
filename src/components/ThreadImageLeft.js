@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Image, TouchableHighlight, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function ThreadImageLeft({avatar, firstname, lastname, content, vote, onVote}) {
+function ThreadImageLeft({avatar, firstname, lastname, content, timestamp, vote, onVote}) {
   const {imageUrl} = content;
 
   return (
@@ -24,6 +24,7 @@ function ThreadImageLeft({avatar, firstname, lastname, content, vote, onVote}) {
           </View>
         </View>
       </TouchableHighlight>
+      <Text>{timestamp}</Text>
     </View>
   );
 }

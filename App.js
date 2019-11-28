@@ -16,6 +16,7 @@ import HomeScreen from './src/containers/HomeScreen';
 import ChatScreen from './src/containers/ChatScreen';
 import LoginScreen from './src/containers/Login';
 import SignupScreen from './src/containers/Signup';
+import ScoreBoard from './src/components/ScoreBoard';
 
 const navigationOptions = {
   headerStyle: {
@@ -42,8 +43,12 @@ const MainNavigator = createStackNavigator(
       screen: LoginScreen,
       navigationOptions,
     },
-    SignupScreen: {
-      screen: SignupScreen,
+    // SignupScreen: {
+    //   screen: SignupScreen,
+    //   navigationOptions,
+    // }
+    ScoreBoard:{
+      screen: ScoreBoard,
       navigationOptions,
     }
   },

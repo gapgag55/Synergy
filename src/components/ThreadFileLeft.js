@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function ThreadFileLeft({avatar, firstname, lastname, content, vote, onVote}) {
+function ThreadFileLeft({avatar, firstname, lastname, content, timestamp, vote, onVote}) {
   const {fileName, fileSize, fileUrl} = content;
 
   const getFileSize = size => {
@@ -47,6 +47,7 @@ function ThreadFileLeft({avatar, firstname, lastname, content, vote, onVote}) {
                 <View>
                   <Text style={styles.fileName}>{fileName}</Text>
                   <Text style={styles.fileSize}>{getFileSize(fileSize)}</Text>
+                  
                 </View>
                 <Icon
                   name="chevron-right"
@@ -65,6 +66,7 @@ function ThreadFileLeft({avatar, firstname, lastname, content, vote, onVote}) {
           </View>
         </View>
       </TouchableWithoutFeedback>
+      <Text>{timestamp}</Text>
     </View>
   );
 }
