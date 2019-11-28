@@ -8,6 +8,7 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   TouchableHighlight,
+  Animated,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
@@ -140,6 +141,8 @@ function Sender({isActiveAttachment, openAttachment}) {
     });
   };
 
+  const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
+
   return (
     <>
       <View style={styles.container}>
@@ -165,9 +168,9 @@ function Sender({isActiveAttachment, openAttachment}) {
         </TouchableWithoutFeedback>
       </View>
       <View style={styles.attachment}>
-        <TouchableWithoutFeedback onPress={() => console.log('baba')}>
+        <AnimatedTouchable onPress={() => console.log('ok')}>
           <Icon name="image" size={25} style={styles.attachmentIcon} />
-        </TouchableWithoutFeedback>
+        </AnimatedTouchable>
         <TouchableWithoutFeedback onPress={showFilePicker}>
           <Icon name="file" size={25} style={styles.attachmentIcon} />
         </TouchableWithoutFeedback>
@@ -189,7 +192,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingVertical: 10,
     paddingHorizontal: 30,
-    height: 'auto',
+    height: 60,
     borderRadius: 50,
     borderColor: 'gray',
     shadowColor: '#999999',

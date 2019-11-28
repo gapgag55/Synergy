@@ -53,7 +53,7 @@ function ChatScreen() {
     setAttachment(true);
 
     Animated.timing(activeAttachment, {
-      toValue: -110,
+      toValue: -100,
       duration: 200,
       useNativeDriver: true,
     }).start();
@@ -72,7 +72,7 @@ function ChatScreen() {
   };
 
   return (
-    <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={80}>
+    <KeyboardAvoidingView>
       <StatusBar barStyle="dark-content" />
       <View style={styles.container}>
         {isLoading ? (
@@ -82,6 +82,8 @@ function ChatScreen() {
         ) : (
           <Animated.View
             style={{
+              marginBottom: 200,
+              height: '100%',
               transform: [{translateY: activeAttachment}],
             }}>
             <TouchableWithoutFeedback
@@ -126,7 +128,6 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     backgroundColor: '#f0f0f0',
-    height: '100%',
   },
   loading: {
     justifyContent: 'center',
@@ -134,11 +135,11 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   thread: {
-    height: Platform.OS === 'ios' ? '85%' : '80%',
+    flex: 1,
   },
   threadList: {},
   sender: {
-    height: Platform.OS === 'ios' ? '15%' : '20%',
+    flex: 1,
   },
 });
 
