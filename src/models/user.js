@@ -1,11 +1,20 @@
 import firebase from 'react-native-firebase';
 
-const user = firebase.auth().currentUser;
-const name = user.displayName.split(' ');
+function getUser() {
+  const user = firebase.auth().currentUser;
 
-export default {
-  firstname: name[0],
-  lastname: name[1],
-  id: user.uid,
-  avatar: user.photoURL,
-};
+  if (user) {
+    const name = user ? user.displayName.split(' ') : '';
+
+    return {
+      firstname: name[0],
+      lastname: name[1],
+      id: user.uid,
+      avatar: user.photoURL,
+    };
+  }
+
+  return {};
+}
+
+export default getUser();
