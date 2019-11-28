@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import firebase from 'react-native-firebase';
+import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/Feather';
 import ImagePicker from 'react-native-image-picker';
 import DocumentPicker from 'react-native-document-picker';
@@ -14,7 +15,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-function Sender({isActiveAttachment, openAttachment}) {
+function Sender({channel, isActiveAttachment, openAttachment}) {
   const [value, onChangeText] = useState('');
 
   const options = {
@@ -30,7 +31,7 @@ function Sender({isActiveAttachment, openAttachment}) {
       const thread = firebase
         .database()
         .ref('channels')
-        .child('practical-software-engineer')
+        .child(channel.key)
         .push();
 
       thread.set({
@@ -100,7 +101,7 @@ function Sender({isActiveAttachment, openAttachment}) {
         const thread = firebase
           .database()
           .ref('channels')
-          .child('practical-software-engineer')
+          .child(channel.key)
           .push();
 
         thread.set({
@@ -123,7 +124,7 @@ function Sender({isActiveAttachment, openAttachment}) {
       const thread = firebase
         .database()
         .ref('channels')
-        .child('practical-software-engineer')
+        .child(channel.key)
         .push();
 
       thread.set({
@@ -232,4 +233,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Sender;
+const mapStateToProps = state => ({
+  channel: state.channel.channel,
+});
+
+export default connect(mapStateToProps)(Sender);

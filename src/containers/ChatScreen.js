@@ -99,7 +99,7 @@ function ChatScreen({channel}) {
                     <Thread
                       key={item.key}
                       thread={item}
-                      isMe={item.id === user.uid}
+                      isMe={item.id === user.id}
                     />
                   )}
                   keyExtractor={item => item.key}
