@@ -26,11 +26,14 @@ function ScoreBoard({channel}) {
               }
             });
 
-            messages = messages.filter(message => message !== undefined);
+            messages = messages.filter(
+              message => message != undefined && message.id,
+            );
 
             // Get all chatters
             let uids = [];
             let chatters = [];
+
             messages.forEach(thread => {
               if (!uids.includes(thread.id)) {
                 uids.push(thread.id);

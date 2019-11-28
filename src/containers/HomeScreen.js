@@ -64,10 +64,6 @@ function HomeScreen({navigation, setChannel}) {
           <View style={styles.headingRight}>
             <TouchableWithoutFeedback
               onPress={() => navigation.navigate('GroupScreen')}>
-              <Icon name="search" size={20} style={{paddingRight: 10}} />
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback
-              onPress={() => navigation.navigate('GroupScreen')}>
               <Icon name="plus" size={25} />
             </TouchableWithoutFeedback>
           </View>
