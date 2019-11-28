@@ -50,6 +50,7 @@ const AppStack = createStackNavigator(
     },
     ScoreBoard: {
       screen: ScoreBoard,
+      navigationOptions,
     },
     ChatScreen: {
       screen: ChatScreen,

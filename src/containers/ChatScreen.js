@@ -8,9 +8,9 @@ import {
   Animated,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
-  Platform,
 } from 'react-native';
 import firebase from 'react-native-firebase';
+import Icon from 'react-native-vector-icons/Feather';
 import Thread from './Thread';
 import Sender from './Sender';
 
@@ -119,8 +119,13 @@ function ChatScreen() {
   );
 }
 
-ChatScreen.navigationOptions = () => ({
+ChatScreen.navigationOptions = ({navigation}) => ({
   title: 'Practical Software Engineering',
+  headerRight: () => (
+    <TouchableWithoutFeedback onPress={() => navigation.navigate('ScoreBoard')}>
+      <Icon name="thumbs-up" size={20} style={{marginRight: 20}} />
+    </TouchableWithoutFeedback>
+  ),
 });
 
 const styles = StyleSheet.create({

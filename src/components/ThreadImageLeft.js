@@ -2,11 +2,19 @@ import React from 'react';
 import {View, Text, Image, TouchableHighlight, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function ThreadImageLeft({avatar, firstname, lastname, content, timestamp, vote, onVote}) {
+function ThreadImageLeft({
+  avatar,
+  firstname,
+  lastname,
+  content,
+  timestamp,
+  vote,
+  onVote,
+}) {
   const {imageUrl} = content;
 
   return (
-    <View>
+    <View style={styles.thread}>
       <TouchableHighlight onPress={onVote} underlayColor="transparent">
         <View style={styles.container}>
           <Image style={styles.avatar} source={{uri: avatar}} />
@@ -24,12 +32,16 @@ function ThreadImageLeft({avatar, firstname, lastname, content, timestamp, vote,
           </View>
         </View>
       </TouchableHighlight>
-      <Text>{timestamp}</Text>
+      <Text style={styles.time}>{timestamp}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  thread: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
   container: {
     flexDirection: 'row',
     maxWidth: '100%',
@@ -64,16 +76,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    right: -30,
+    right: -5,
     bottom: 0,
     backgroundColor: '#ffffff',
-    paddingVertical: 2,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     borderRadius: 10,
   },
   voteText: {
-    fontSize: 15,
+    fontSize: 10,
     marginLeft: 2,
+  },
+  time: {
+    fontSize: 10,
+    color: '#999999',
+    marginBottom: 10,
+    marginLeft: 5,
   },
 });
 
