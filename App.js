@@ -48,7 +48,7 @@ const AppStack = createStackNavigator(
       screen: GroupScreen,
       navigationOptions,
     },
-    ScoreBoard:{
+    ScoreBoard: {
       screen: ScoreBoard,
     },
     ChatScreen: {

@@ -24,30 +24,30 @@ import java.util.List;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
-      new ReactNativeHost(this) {
-        @Override
-        public boolean getUseDeveloperSupport() {
-          return BuildConfig.DEBUG;
-        }
+    new ReactNativeHost(this) {
+      @Override
+      public boolean getUseDeveloperSupport() {
+        return BuildConfig.DEBUG;
+      }
 
-        @Override
-        protected List<ReactPackage> getPackages() {
-          @SuppressWarnings("UnnecessaryLocalVariable")
-          List<ReactPackage> packages = new PackageList(this).getPackages();
+      @Override
+      protected List<ReactPackage> getPackages() {
+        @SuppressWarnings("UnnecessaryLocalVariable")
+        List<ReactPackage> packages = new PackageList(this).getPackages();
 
-          packages.add(new RNFirebaseStoragePackage());
-          packages.add(new RNFirebaseAuthPackage());
-          packages.add(new RNFirebaseDatabasePackage());
-          packages.add(new RNFirebaseFirestorePackage());
+        packages.add(new RNFirebaseStoragePackage());
+        packages.add(new RNFirebaseAuthPackage());
+        packages.add(new RNFirebaseDatabasePackage());
+        packages.add(new RNFirebaseFirestorePackage());
 
-          return packages;
-        }
+        return packages;
+      }
 
-        @Override
-        protected String getJSMainModuleName() {
-          return "index";
-        }
-      };
+      @Override
+      protected String getJSMainModuleName() {
+        return "index";
+      }
+    };
 
   @Override
   public ReactNativeHost getReactNativeHost() {
