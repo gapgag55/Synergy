@@ -180,6 +180,7 @@ android {
 }
 
 dependencies {
+    implementation project(':rn-fetch-blob')
     implementation project(':react-native-vector-icons')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:23.0.1"
@@ -191,7 +192,8 @@ dependencies {
     implementation "com.google.firebase:firebase-storage:19.1.0"
     implementation 'com.google.firebase:firebase-auth:19.1.0'
     implementation 'com.google.firebase:firebase-firestore:21.2.1'
-    
+
+    implementation project(':react-native-document-picker')
     implementation project(':react-native-firebase')
 
 

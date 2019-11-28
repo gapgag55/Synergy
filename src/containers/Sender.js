@@ -3,11 +3,11 @@ import firebase from 'react-native-firebase';
 import Icon from 'react-native-vector-icons/Feather';
 import ImagePicker from 'react-native-image-picker';
 import DocumentPicker from 'react-native-document-picker';
+import RNFetchBlob from 'rn-fetch-blob';
 import {
   View,
   TextInput,
   TouchableWithoutFeedback,
-  TouchableHighlight,
   Animated,
   StyleSheet,
   TouchableOpacity,
@@ -54,37 +54,44 @@ function Sender({isActiveAttachment, openAttachment}) {
   };
 
   const showImagePicker = () => {
-    console.log('button pressed');
     ImagePicker.showImagePicker(options, response => {
-      uploadImage(response);
+      const source = {
+        ...response,
+        uri: response.path,
+      };
+
+      uploadImage(source);
     });
   };
 
   const showCamera = () => {
     ImagePicker.launchCamera(options, response => {
-      uploadImage(response);
+      const source = {
+        ...response,
+        uri: response.path,
+      };
+      uploadImage(source);
     });
   };
 
   const showFilePicker = async () => {
     try {
-      const res = await DocumentPicker.pick();
+      const response = await DocumentPicker.pick();
 
-      if (res.type.split('/')[0] === 'image') {
-        const source = {
-          uri: res.uri,
-        };
-        uploadImage(source);
-      } else {
-        const source = {
-          uri: res.uri,
-          type: res.type,
-          name: res.name,
-          size: res.size,
-        };
-
-        uploadFile(source);
-      }
+      RNFetchBlob.fs
+        .stat(response.uri)
+        .then(stats => {
+          const source = {
+            uri: 'file://' + stats.path,
+            type: stats.type,
+            name: stats.filename,
+            size: stats.size,
+          };
+          uploadFile(source);
+        })
+        .catch(err => {
+          console.warn('err: ', err);
+        });
     } catch (err) {
       console.log(err);
     }
@@ -168,7 +175,7 @@ function Sender({isActiveAttachment, openAttachment}) {
         </TouchableWithoutFeedback>
       </View>
       <View style={styles.attachment}>
-        <AnimatedTouchable onPress={() => console.log('ok')}>
+        <AnimatedTouchable onPress={showImagePicker}>
           <Icon name="image" size={25} style={styles.attachmentIcon} />
         </AnimatedTouchable>
         <TouchableWithoutFeedback onPress={showFilePicker}>

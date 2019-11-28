@@ -44,6 +44,8 @@ target 'guesters' do
 
   pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
 
+  pod 'rn-fetch-blob', :path => '../node_modules/rn-fetch-blob'
+
   target 'guestersTests' do
     inherit! :search_paths
     # Pods for testing

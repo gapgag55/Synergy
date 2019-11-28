@@ -21,6 +21,7 @@ function ThreadImageRight({content, timestamp, vote, onVote}) {
 
   return (
     <View style={styles.thread}>
+      <Text style={styles.time}>{timestamp}</Text>
       <TouchableWithoutFeedback onPress={onVote}>
         <View style={styles.container}>
           <View style={styles.contentContainer}>
@@ -40,13 +41,14 @@ function ThreadImageRight({content, timestamp, vote, onVote}) {
           </View>
         </View>
       </TouchableWithoutFeedback>
-      <Text>{timestamp}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   thread: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
     alignItems: 'flex-end',
   },
   container: {
@@ -60,6 +62,11 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 10,
     backgroundColor: '#dddddd',
+  },
+  time: {
+    fontSize: 10,
+    color: '#999999',
+    marginBottom: 5,
   },
   name: {
     fontWeight: '500',
@@ -76,15 +83,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    left: -30,
-    bottom: 0,
+    left: -5,
+    bottom: -5,
     backgroundColor: '#ffffff',
-    paddingVertical: 2,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     borderRadius: 10,
   },
   voteText: {
-    fontSize: 15,
+    fontSize: 10,
     marginLeft: 2,
   },
 });

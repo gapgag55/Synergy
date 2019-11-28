@@ -72,7 +72,7 @@ function ChatScreen() {
   };
 
   return (
-    <KeyboardAvoidingView>
+    <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={-200}>
       <StatusBar barStyle="dark-content" />
       <View style={styles.container}>
         {isLoading ? (
@@ -82,8 +82,7 @@ function ChatScreen() {
         ) : (
           <Animated.View
             style={{
-              marginBottom: 200,
-              height: '100%',
+              ...styles.animatedView,
               transform: [{translateY: activeAttachment}],
             }}>
             <TouchableWithoutFeedback
@@ -128,6 +127,10 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     backgroundColor: '#f0f0f0',
+  },
+  animatedView: {
+    marginBottom: 200,
+    height: '100%',
   },
   loading: {
     justifyContent: 'center',

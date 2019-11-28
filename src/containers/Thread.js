@@ -17,7 +17,7 @@ function Thread({thread, isMe}) {
   var hrs = date.getHours();
   var minutes = date.getMinutes();
 
-  timestamp2 = hrs + ':' + minutes;
+  timestamp2 = hrs + ':' + ((minutes < 10 ? '0' : '') + minutes);
 
   useEffect(() => {
     firebase

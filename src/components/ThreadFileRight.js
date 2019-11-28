@@ -25,6 +25,7 @@ function ThreadFileRight({content, timestamp, vote, onVote}) {
 
   return (
     <View style={styles.thread}>
+      <Text style={styles.time}>{timestamp}</Text>
       <TouchableWithoutFeedback onPress={onVote}>
         <View style={styles.container}>
           <View style={styles.contentContainer}>
@@ -41,7 +42,7 @@ function ThreadFileRight({content, timestamp, vote, onVote}) {
               </View>
               <Icon
                 name="chevron-right"
-                size={25}
+                size={20}
                 color="#ffffff"
                 style={styles.fileIconRight}
               />
@@ -52,18 +53,17 @@ function ThreadFileRight({content, timestamp, vote, onVote}) {
                 <Text style={styles.voteText}>{vote}</Text>
               </View>
             )}
-           
           </View>
-          
         </View>
       </TouchableWithoutFeedback>
-      <Text>{timestamp}</Text>  
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   thread: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
     alignItems: 'flex-end',
   },
   container: {
@@ -93,13 +93,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   fileName: {
-    fontSize: 17,
+    fontSize: 12,
     fontWeight: 'bold',
     color: '#ffffff',
     marginBottom: 2,
+    maxWidth: 100,
   },
   fileSize: {
-    fontSize: 15,
+    fontSize: 10,
     color: '#ffffff',
   },
   fileIconLeft: {
@@ -108,19 +109,23 @@ const styles = StyleSheet.create({
   fileIconRight: {
     marginLeft: 15,
   },
+  time: {
+    fontSize: 10,
+    color: '#999999',
+    marginBottom: 5,
+  },
   voteContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    left: -30,
-    bottom: 0,
+    left: -5,
+    bottom: -5,
     backgroundColor: '#ffffff',
-    paddingVertical: 2,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     borderRadius: 10,
   },
   voteText: {
-    fontSize: 15,
+    fontSize: 10,
     marginLeft: 2,
   },
 });
