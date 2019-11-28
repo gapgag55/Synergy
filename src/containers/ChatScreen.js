@@ -10,24 +10,24 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import firebase from 'react-native-firebase';
+import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/Feather';
 import Thread from './Thread';
 import Sender from './Sender';
+import user from '../models/user';
 
-function ChatScreen() {
+function ChatScreen({channel}) {
   const [isLoading, setLoading] = useState(true);
   const [dataSource, setDataSource] = useState([]);
   const [isActiveAttachment, setAttachment] = useState(false);
   const [activeAttachment] = useState(new Animated.Value(0));
-
-  const user = firebase.auth().currentUser;
 
   useEffect(() => {
     if (isLoading) {
       firebase
         .database()
         .ref('channels')
-        .child('practical-software-engineer')
+        .child(channel.key)
         .limitToLast(20)
         .orderByChild('timestamp')
         .on('value', snapshot => {
@@ -43,7 +43,7 @@ function ChatScreen() {
 
       setLoading(false);
     }
-  }, [isLoading]);
+  }, [channel, isLoading]);
 
   const openAttachment = () => {
     if (isActiveAttachment) {
@@ -119,14 +119,17 @@ function ChatScreen() {
   );
 }
 
-ChatScreen.navigationOptions = ({navigation}) => ({
-  title: 'Practical Software Engineering',
-  headerRight: () => (
-    <TouchableWithoutFeedback onPress={() => navigation.navigate('ScoreBoard')}>
-      <Icon name="thumbs-up" size={20} style={{marginRight: 20}} />
-    </TouchableWithoutFeedback>
-  ),
-});
+ChatScreen.navigationOptions = ({navigation}) => {
+  return {
+    title: navigation.state.params.channel,
+    headerRight: () => (
+      <TouchableWithoutFeedback
+        onPress={() => navigation.navigate('ScoreBoard')}>
+        <Icon name="thumbs-up" size={20} style={{marginRight: 20}} />
+      </TouchableWithoutFeedback>
+    ),
+  };
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -151,4 +154,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChatScreen;
+const mapStateToProps = state => ({
+  channel: state.channel.channel,
+});
+
+export default connect(mapStateToProps)(ChatScreen);

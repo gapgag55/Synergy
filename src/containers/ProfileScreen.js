@@ -7,10 +7,9 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import firebase from 'react-native-firebase';
+import user from '../models/user';
 
 function ProfileScreen({navigation}) {
-  const user = firebase.auth().currentUser;
-
   const logout = async () => {
     await firebase.auth().signOut();
     navigation.navigate('Auth');
@@ -20,8 +19,10 @@ function ProfileScreen({navigation}) {
     <View style={styles.container}>
       <View style={styles.padding}>
         <View style={styles.profile}>
-          <Image style={styles.avatar} source={{uri: user.photoURL}} />
-          <Text style={styles.displayName}>{user.displayName}</Text>
+          <Image style={styles.avatar} source={{uri: user.avatar}} />
+          <Text style={styles.displayName}>{`${user.firstname} ${
+            user.lastname
+          }`}</Text>
           <TouchableWithoutFeedback onPress={logout}>
             <View style={styles.logoutButton}>
               <Text style={styles.logoutText}>Log Out</Text>

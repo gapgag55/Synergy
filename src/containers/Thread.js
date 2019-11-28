@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 import firebase from 'react-native-firebase';
 import ThreadLeft from '../components/ThreadLeft';
 import ThreadRight from '../components/ThreadRight';
-import {user} from '../models/user';
+import user from '../models/user';
+import ThreadSystem from '../components/ThreadSystem';
 import ThreadImageLeft from '../components/ThreadImageLeft';
 import ThreadImageRight from '../components/ThreadImageRight';
 import ThreadFileLeft from '../components/ThreadFileLeft';
@@ -53,6 +54,10 @@ function Thread({thread, isMe}) {
         }
       });
   };
+
+  if (type === 'system') {
+    return <ThreadSystem content={content} />;
+  }
 
   if (isMe) {
     if (type === 'file') {

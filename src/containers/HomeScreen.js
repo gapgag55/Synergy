@@ -10,6 +10,9 @@ import {
 } from 'react-native';
 import firebase from 'react-native-firebase';
 import Icon from 'react-native-vector-icons/Feather';
+import {connect} from 'react-redux';
+import user from '../models/user';
+import {setChannelAction} from '../actions/channel';
 
 function createTitle(str) {
   return str.replace(/-/g, ' ').replace(/^./, function(x) {
@@ -17,10 +20,9 @@ function createTitle(str) {
   });
 }
 
-function HomeScreen({navigation}) {
+function HomeScreen({navigation, setChannel}) {
   const [isLoading, setLoading] = useState(true);
   const [dataSource, setDataSource] = useState([]);
-  const user = firebase.auth().currentUser;
 
   useEffect(() => {
     if (isLoading) {
@@ -48,8 +50,10 @@ function HomeScreen({navigation}) {
         <TouchableWithoutFeedback
           onPress={() => navigation.navigate('ProfileScreen')}>
           <View style={styles.profile}>
-            <Image style={styles.avatar} source={{uri: user.photoURL}} />
-            <Text style={styles.displayName}>{user.displayName}</Text>
+            <Image style={styles.avatar} source={{uri: user.avatar}} />
+            <Text style={styles.displayName}>{`${user.firstname} ${
+              user.lastname
+            }`}</Text>
           </View>
         </TouchableWithoutFeedback>
       </View>
@@ -77,7 +81,15 @@ function HomeScreen({navigation}) {
             showsVerticalScrollIndicator={false}
             renderItem={({item}) => (
               <TouchableWithoutFeedback
-                onPress={() => navigation.navigate('ChatScreen')}>
+                onPress={() => {
+                  setChannel({
+                    key: item.key,
+                    name: createTitle(item.key),
+                  });
+                  navigation.navigate('ChatScreen', {
+                    channel: createTitle(item.key),
+                  });
+                }}>
                 <View style={styles.groupItem}>
                   <Text style={styles.groupTitle}>{createTitle(item.key)}</Text>
                   <Icon name="chevron-right" size={25} />
@@ -91,10 +103,6 @@ function HomeScreen({navigation}) {
     </View>
   );
 }
-
-HomeScreen.navigationOptions = () => ({
-  title: 'Hello!',
-});
 
 const styles = StyleSheet.create({
   container: {
@@ -152,7 +160,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   groupContainer: {
-    paddingVertical: 20,
+    paddingVertical: 10,
   },
   groupTitle: {
     fontSize: 20,
@@ -162,7 +170,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingVertical: 10,
   },
 });
 
-export default HomeScreen;
+const mapDispatchToProps = dispatch => ({
+  setChannel: channel => dispatch(setChannelAction(channel)),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(HomeScreen);

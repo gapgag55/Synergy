@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import ImagePicker from 'react-native-image-picker';
 import DocumentPicker from 'react-native-document-picker';
 import RNFetchBlob from 'rn-fetch-blob';
+import user from '../models/user';
 import {
   View,
   TextInput,
@@ -15,16 +16,6 @@ import {
 
 function Sender({isActiveAttachment, openAttachment}) {
   const [value, onChangeText] = useState('');
-  const user = firebase.auth().currentUser;
-
-  const name = user.displayName.split(' ');
-
-  const userData = {
-    firstname: name[0],
-    lastname: name[1],
-    id: user.uid,
-    avatar: user.photoURL,
-  };
 
   const options = {
     title: 'Select Photo',
@@ -46,7 +37,7 @@ function Sender({isActiveAttachment, openAttachment}) {
         content: value,
         timestamp: firebase.database.ServerValue.TIMESTAMP,
         type: 'text',
-        ...userData,
+        ...user,
       });
     }
 
@@ -118,7 +109,7 @@ function Sender({isActiveAttachment, openAttachment}) {
           },
           timestamp: firebase.database.ServerValue.TIMESTAMP,
           type: 'image',
-          ...userData,
+          ...user,
         });
       });
     }
@@ -143,7 +134,7 @@ function Sender({isActiveAttachment, openAttachment}) {
         },
         timestamp: firebase.database.ServerValue.TIMESTAMP,
         type: 'file',
-        ...userData,
+        ...user,
       });
     });
   };
