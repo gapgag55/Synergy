@@ -73,7 +73,7 @@ function ChatScreen({channel, user}) {
   };
 
   return (
-    <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={-200}>
+    <KeyboardAvoidingView behavior="height" keyboardVerticalOffset={200}>
       <StatusBar barStyle="dark-content" />
       <View style={styles.container}>
         <Animated.View
