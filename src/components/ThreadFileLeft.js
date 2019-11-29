@@ -66,14 +66,16 @@ function ThreadFileLeft({avatar, firstname, lastname, content, timestamp, vote, 
           </View>
         </View>
       </TouchableWithoutFeedback>
-      <Text>{timestamp}</Text>
+      <Text style={styles.time}>{timestamp}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   thread: {
-    alignItems: 'flex-start',
+    alignItems: 'flex-end',
+    flexDirection: 'row',
+    justifyContent: 'flex-start'
   },
   container: {
     flexDirection: 'row',
@@ -114,13 +116,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   fileName: {
-    fontSize: 17,
+    fontSize: 12,
     fontWeight: 'bold',
     color: '#ffffff',
     marginBottom: 2,
+    maxWidth: 100
   },
   fileSize: {
-    fontSize: 15,
+    fontSize: 10,
     color: '#ffffff',
   },
   fileIconLeft: {
@@ -133,18 +136,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    right: -30,
+    right: -5,
     bottom: 0,
     backgroundColor: '#ffffff',
     paddingVertical: 2,
     minWidth: 20,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     borderRadius: 10,
   },
   voteText: {
-    fontSize: 15,
+    fontSize: 10,
     marginLeft: 2,
   },
+  time:{
+    fontSize: 10,
+    color: '#999999',
+    marginBottom: 5
+  }
+  
 });
 
 export default ThreadFileLeft;
