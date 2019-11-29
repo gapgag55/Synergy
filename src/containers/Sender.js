@@ -5,7 +5,6 @@ import Icon from 'react-native-vector-icons/Feather';
 import ImagePicker from 'react-native-image-picker';
 import DocumentPicker from 'react-native-document-picker';
 import RNFetchBlob from 'rn-fetch-blob';
-import user from '../models/user';
 import {
   View,
   TextInput,
@@ -15,7 +14,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-function Sender({channel, isActiveAttachment, openAttachment}) {
+function Sender({channel, user, isActiveAttachment, openAttachment}) {
   const [value, onChangeText] = useState('');
 
   const options = {
@@ -234,6 +233,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
+  user: state.user,
   channel: state.channel.channel,
 });
 

@@ -14,9 +14,8 @@ import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/Feather';
 import Thread from './Thread';
 import Sender from './Sender';
-import user from '../models/user';
 
-function ChatScreen({channel}) {
+function ChatScreen({channel, user}) {
   const [isLoading, setLoading] = useState(true);
   const [dataSource, setDataSource] = useState([]);
   const [isActiveAttachment, setAttachment] = useState(false);
@@ -38,10 +37,12 @@ function ChatScreen({channel}) {
 
             messages = messages.sort((a, b) => b.timestamp - a.timestamp);
             setDataSource(messages);
+
+            setTimeout(() => {
+              setLoading(false);
+            }, 500);
           }
         });
-
-      setLoading(false);
     }
   }, [channel, isLoading]);
 
@@ -75,20 +76,20 @@ function ChatScreen({channel}) {
     <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={-200}>
       <StatusBar barStyle="dark-content" />
       <View style={styles.container}>
-        {isLoading ? (
-          <View style={styles.loading}>
-            <ActivityIndicator />
-          </View>
-        ) : (
-          <Animated.View
-            style={{
-              ...styles.animatedView,
-              transform: [{translateY: activeAttachment}],
-            }}>
-            <TouchableWithoutFeedback
-              onPress={() => closeAttachment()}
-              underlayColor="transparent">
-              <View style={styles.thread}>
+        <Animated.View
+          style={{
+            ...styles.animatedView,
+            transform: [{translateY: activeAttachment}],
+          }}>
+          <TouchableWithoutFeedback
+            onPress={() => closeAttachment()}
+            underlayColor="transparent">
+            <View style={styles.thread}>
+              {isLoading ? (
+                <View style={styles.loading}>
+                  <ActivityIndicator />
+                </View>
+              ) : (
                 <FlatList
                   data={dataSource}
                   scrollToIndex={{viewPosition: 1}}
@@ -105,16 +106,16 @@ function ChatScreen({channel}) {
                   )}
                   keyExtractor={item => item.key}
                 />
-              </View>
-            </TouchableWithoutFeedback>
-            <View style={styles.sender}>
-              <Sender
-                isActiveAttachment={isActiveAttachment}
-                openAttachment={openAttachment}
-              />
+              )}
             </View>
-          </Animated.View>
-        )}
+          </TouchableWithoutFeedback>
+          <View style={styles.sender}>
+            <Sender
+              isActiveAttachment={isActiveAttachment}
+              openAttachment={openAttachment}
+            />
+          </View>
+        </Animated.View>
       </View>
     </KeyboardAvoidingView>
   );
@@ -126,7 +127,7 @@ ChatScreen.navigationOptions = ({navigation}) => {
     headerRight: () => (
       <TouchableWithoutFeedback
         onPress={() => navigation.navigate('ScoreBoard')}>
-        <Icon name="thumbs-up" size={20} style={{marginRight: 20}} />
+        <Icon name="bar-chart-2" size={20} style={{marginRight: 20}} />
       </TouchableWithoutFeedback>
     ),
   };
@@ -159,6 +160,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
+  user: state.user,
   channel: state.channel.channel,
 });
 

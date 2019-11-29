@@ -1,20 +1,34 @@
 import React, {useEffect} from 'react';
 import {View, ActivityIndicator, StatusBar} from 'react-native';
 import firebase from 'react-native-firebase';
+import {connect} from 'react-redux';
+import {setUserAction} from '../actions/user';
 
-function AuthLoadingScreen({navigation}) {
+function AuthLoadingScreen({navigation, setUser}) {
   useEffect(() => {
     const user = firebase.auth().currentUser;
 
-    navigation.navigate(user ? 'App' : 'Auth');
+    setTimeout(() => {
+      if (user) {
+        setUser(user);
+      }
+
+      navigation.navigate(user ? 'App' : 'Auth');
+    }, 400);
   });
 
   return (
     <View>
-      <ActivityIndicator />
       <StatusBar barStyle="default" />
     </View>
   );
 }
 
-export default AuthLoadingScreen;
+const mapDispatchToProps = dispatch => ({
+  setUser: user => dispatch(setUserAction(user)),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(AuthLoadingScreen);

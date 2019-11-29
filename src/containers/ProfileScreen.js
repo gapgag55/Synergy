@@ -7,11 +7,13 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import firebase from 'react-native-firebase';
-import user from '../models/user';
+import {connect} from 'react-redux';
+import {logoutUserAction} from '../actions/user';
 
-function ProfileScreen({navigation}) {
+function ProfileScreen({navigation, user, logoutUser}) {
   const logout = async () => {
     await firebase.auth().signOut();
+    logoutUser();
     navigation.navigate('Auth');
   };
 
@@ -75,4 +77,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen;
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = dispatch => ({
+  logoutUser: () => dispatch(logoutUserAction()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ProfileScreen);

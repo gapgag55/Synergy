@@ -3,14 +3,13 @@ import firebase from 'react-native-firebase';
 import {connect} from 'react-redux';
 import ThreadLeft from '../components/ThreadLeft';
 import ThreadRight from '../components/ThreadRight';
-import user from '../models/user';
 import ThreadSystem from '../components/ThreadSystem';
 import ThreadImageLeft from '../components/ThreadImageLeft';
 import ThreadImageRight from '../components/ThreadImageRight';
 import ThreadFileLeft from '../components/ThreadFileLeft';
 import ThreadFileRight from '../components/ThreadFileRight';
 
-function Thread({channel, thread, isMe}) {
+function Thread({channel, user, thread, isMe}) {
   const {key, avatar, content, firstname, lastname, timestamp, type} = thread;
   const [vote, setVote] = useState(0);
 
@@ -131,6 +130,7 @@ function Thread({channel, thread, isMe}) {
 }
 
 const mapStateToProps = state => ({
+  user: state.user,
   channel: state.channel.channel,
 });
 
