@@ -1,6 +1,8 @@
 import {AccessToken, LoginManager} from 'react-native-fbsdk';
 import {GoogleSignin} from 'react-native-google-signin';
 import firebase from 'react-native-firebase';
+import { setUserAction } from '../../actions/user';
+import store from '../../reducers';
 
 // Calling the following function will open the FB login dialogue:
 export async function facebookLogin(navigation) {
@@ -38,6 +40,9 @@ export async function facebookLogin(navigation) {
 
     if (firebaseUserCredential.user) {
       setTimeout(() => {
+        const user = firebase.auth().currentUser;
+
+        store.dispatch(setUserAction(user));
         navigation.navigate('HomeScreen');
       }, 1000);
     }
@@ -69,6 +74,9 @@ export async function googleLogin(navigation) {
 
     if (firebaseUserCredential.user) {
       setTimeout(() => {
+        const user = firebase.auth().currentUser;
+
+        store.dispatch(setUserAction(user));
         navigation.navigate('HomeScreen');
       });
     }

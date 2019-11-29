@@ -66,12 +66,11 @@ function ScoreBoard({channel}) {
             });
 
             // Sort score
-            chatters = chatters.sort((a, b) => b.vote - a.vote);
+            chatters = chatters.sort((a, b) => b.vote - a.vote).slice(0, 3);
             setChatter(chatters);
+            setLoading(false);
           }
         });
-
-      setLoading(false);
     }
   }, [channel.key, isLoading]);
 
@@ -81,35 +80,31 @@ function ScoreBoard({channel}) {
     require('../images/third.png'),
   ];
 
-  if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator />
-      </View>
-    );
-  }
-
   return (
     <View style={styles.container}>
       <View style={styles.boardContainer}>
         <View style={styles.viewStyleForLine}>
           <Text style={styles.head}>Score Board</Text>
         </View>
-        {chatters.map((chatter, index) => {
-          return (
-            <View
-              style={styles.item}
-              key={chatter.firstname + ' ' + chatter.lastname}>
-              <Image source={awards[index]} style={styles.image} />
-              <View style={styles.postDetailsContainer}>
-                <Text style={styles.name}>
-                  {`${chatter.firstname} ${chatter.lastname}`}
-                </Text>
-                <Text style={styles.score}>{`Score: ${chatter.vote}`}</Text>
+        {isLoading ? (
+          <ActivityIndicator />
+        ) : (
+          chatters.map((chatter, index) => {
+            return (
+              <View
+                style={styles.item}
+                key={chatter.firstname + ' ' + chatter.lastname}>
+                <Image source={awards[index]} style={styles.image} />
+                <View style={styles.postDetailsContainer}>
+                  <Text style={styles.name}>
+                    {`${chatter.firstname} ${chatter.lastname}`}
+                  </Text>
+                  <Text style={styles.score}>{`Score: ${chatter.vote}`}</Text>
+                </View>
               </View>
-            </View>
-          );
-        })}
+            );
+          })
+        )}
       </View>
     </View>
   );
