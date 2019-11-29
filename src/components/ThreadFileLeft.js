@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: 'row',
-    maxWidth: '100%',
+    maxWidth: '60%',
     paddingVertical: 5,
     paddingHorizontal: 5,
     marginBottom: 5,
@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: '#ffffff',
     paddingVertical: 2,
+    minWidth: 20,
     paddingHorizontal: 10,
     borderRadius: 10,
   },

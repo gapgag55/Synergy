@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: 'row',
-    maxWidth: '100%',
+    maxWidth: '60%',
     paddingVertical: 5,
     paddingHorizontal: 5,
   },
@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: '#ffffff',
     paddingHorizontal: 5,
+    minWidth: 20,
     borderRadius: 10,
   },
   voteText: {
