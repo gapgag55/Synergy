@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
     bottom: -5,
     backgroundColor: '#ffffff',
     paddingHorizontal: 5,
+    minWidth: 20,
     borderRadius: 10,
   },
   voteText: {

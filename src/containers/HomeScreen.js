@@ -7,11 +7,11 @@ import {
   Image,
   FlatList,
   TouchableWithoutFeedback,
+  ActivityIndicator,
 } from 'react-native';
 import firebase from 'react-native-firebase';
 import Icon from 'react-native-vector-icons/Feather';
 import {connect} from 'react-redux';
-import user from '../models/user';
 import {setChannelAction} from '../actions/channel';
 
 function createTitle(str) {
@@ -20,7 +20,7 @@ function createTitle(str) {
   });
 }
 
-function HomeScreen({navigation, setChannel}) {
+function HomeScreen({navigation, user, setChannel}) {
   const [isLoading, setLoading] = useState(true);
   const [dataSource, setDataSource] = useState([]);
 
@@ -36,10 +36,9 @@ function HomeScreen({navigation, setChannel}) {
             });
 
             setDataSource(groups);
+            setLoading(false);
           }
         });
-
-      setLoading(false);
     }
   }, [isLoading]);
 
@@ -69,31 +68,37 @@ function HomeScreen({navigation, setChannel}) {
           </View>
         </View>
         <View>
-          <FlatList
-            style={styles.groupContainer}
-            data={dataSource}
-            scrollToIndex={{viewPosition: 1}}
-            inverted
-            showsVerticalScrollIndicator={false}
-            renderItem={({item}) => (
-              <TouchableWithoutFeedback
-                onPress={() => {
-                  setChannel({
-                    key: item.key,
-                    name: createTitle(item.key),
-                  });
-                  navigation.navigate('ChatScreen', {
-                    channel: createTitle(item.key),
-                  });
-                }}>
-                <View style={styles.groupItem}>
-                  <Text style={styles.groupTitle}>{createTitle(item.key)}</Text>
-                  <Icon name="chevron-right" size={25} />
-                </View>
-              </TouchableWithoutFeedback>
-            )}
-            keyExtractor={item => item.key}
-          />
+          {isLoading ? (
+            <ActivityIndicator style={{marginTop: 20}} />
+          ) : (
+            <FlatList
+              style={styles.groupContainer}
+              data={dataSource}
+              scrollToIndex={{viewPosition: 1}}
+              inverted
+              showsVerticalScrollIndicator={false}
+              renderItem={({item}) => (
+                <TouchableWithoutFeedback
+                  onPress={() => {
+                    setChannel({
+                      key: item.key,
+                      name: createTitle(item.key),
+                    });
+                    navigation.navigate('ChatScreen', {
+                      channel: createTitle(item.key),
+                    });
+                  }}>
+                  <View style={styles.groupItem}>
+                    <Text style={styles.groupTitle}>
+                      {createTitle(item.key)}
+                    </Text>
+                    <Icon name="chevron-right" size={25} />
+                  </View>
+                </TouchableWithoutFeedback>
+              )}
+              keyExtractor={item => item.key}
+            />
+          )}
         </View>
       </View>
     </View>
@@ -170,11 +175,15 @@ const styles = StyleSheet.create({
   },
 });
 
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
 const mapDispatchToProps = dispatch => ({
   setChannel: channel => dispatch(setChannelAction(channel)),
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(HomeScreen);
