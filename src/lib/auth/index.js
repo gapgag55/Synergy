@@ -37,7 +37,9 @@ export async function facebookLogin(navigation) {
       .signInWithCredential(credential);
 
     if (firebaseUserCredential.user) {
-      navigation.navigate('HomeScreen');
+      setTimeout(() => {
+        navigation.navigate('HomeScreen');
+      }, 1000);
     }
   } catch (e) {
     console.error(e);

@@ -28,7 +28,7 @@ function ChatScreen({channel}) {
         .database()
         .ref('channels')
         .child(channel.key)
-        .limitToLast(20)
+        .limitToLast(50)
         .orderByChild('timestamp')
         .on('value', snapshot => {
           if (snapshot._value) {
@@ -90,11 +90,12 @@ function ChatScreen({channel}) {
               underlayColor="transparent">
               <View style={styles.thread}>
                 <FlatList
-                  style={styles.threadList}
                   data={dataSource}
                   scrollToIndex={{viewPosition: 1}}
                   inverted
                   showsVerticalScrollIndicator={false}
+                  automaticallyAdjustContentInsets={false}
+                  contentContainerStyle={styles.threadList}
                   renderItem={({item}) => (
                     <Thread
                       key={item.key}
@@ -148,7 +149,10 @@ const styles = StyleSheet.create({
   thread: {
     flex: 1,
   },
-  threadList: {},
+  threadList: {
+    paddingTop: -10,
+    paddingBottom: 20,
+  },
   sender: {
     flex: 1,
   },
