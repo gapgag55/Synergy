@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: 'row',
-    maxWidth: '60%',
+    maxWidth: '80%',
     paddingVertical: 5,
     paddingHorizontal: 5,
   },
