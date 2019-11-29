@@ -1,7 +1,7 @@
 import {AccessToken, LoginManager} from 'react-native-fbsdk';
 import {GoogleSignin} from 'react-native-google-signin';
 import firebase from 'react-native-firebase';
-import { setUserAction } from '../../actions/user';
+import {setUserAction} from '../../actions/user';
 import store from '../../reducers';
 
 // Calling the following function will open the FB login dialogue:

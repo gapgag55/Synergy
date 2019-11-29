@@ -8,7 +8,15 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function ThreadFileLeft({avatar, firstname, lastname, content, timestamp, vote, onVote}) {
+function ThreadFileLeft({
+  avatar,
+  firstname,
+  lastname,
+  content,
+  timestamp,
+  vote,
+  onVote,
+}) {
   const {fileName, fileSize, fileUrl} = content;
 
   const getFileSize = size => {
@@ -47,11 +55,10 @@ function ThreadFileLeft({avatar, firstname, lastname, content, timestamp, vote, 
                 <View>
                   <Text style={styles.fileName}>{fileName}</Text>
                   <Text style={styles.fileSize}>{getFileSize(fileSize)}</Text>
-                  
                 </View>
                 <Icon
                   name="chevron-right"
-                  size={25}
+                  size={20}
                   color="#ffffff"
                   style={styles.fileIconRight}
                 />
@@ -75,13 +82,12 @@ const styles = StyleSheet.create({
   thread: {
     alignItems: 'flex-end',
     flexDirection: 'row',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
   },
   container: {
     flexDirection: 'row',
-    maxWidth: '60%',
-    paddingVertical: 5,
-    paddingHorizontal: 5,
+    maxWidth: '80%',
+    paddingHorizontal: 10,
     marginBottom: 5,
   },
   avatar: {
@@ -120,7 +126,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#ffffff',
     marginBottom: 2,
-    maxWidth: 100
+    maxWidth: 100,
   },
   fileSize: {
     fontSize: 10,
@@ -148,12 +154,11 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginLeft: 2,
   },
-  time:{
+  time: {
     fontSize: 10,
     color: '#999999',
-    marginBottom: 5
-  }
-  
+    marginBottom: 5,
+  },
 });
 
 export default ThreadFileLeft;
